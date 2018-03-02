@@ -49,3 +49,39 @@
 	</form>
 
 </div>
+
+<div class="m-login__forget-password">
+
+	<div class="m-login__head">
+
+		<h3 class="m-login__title">
+			¿Has olvidado tu contraseña?
+		</h3>
+		<div class="m-login__desc">
+			Introduce tu email para generar una nueva contraseña:
+		</div>
+	</div>
+
+	<form class="m-login__form m-form" method="post" action="<?= site_url('login/passwordRecovery') ?>">
+
+		<div class="form-group m-form__group">
+
+			<input class="form-control m-input" type="text" placeholder="Email" name="email" id="m_email" autocomplete="off">
+
+		</div>
+
+		<div class="m-login__form-action">
+
+			<button id="m_login_forget_password_submit" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air">
+				Recuperar
+			</button>
+
+			<button id="m_login_forget_password_cancel" class="btn btn-outline-focus m-btn m-btn--pill m-btn--custom">
+				Cancelar
+			</button>
+
+		</div>
+
+	</form>
+
+</div>

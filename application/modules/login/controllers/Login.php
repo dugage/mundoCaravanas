@@ -88,6 +88,7 @@ class Login  extends MX_Controller
             //generamos una nueva contraseña
             $pass = generate_password();
             //enviamos el email con la nueva contraseña
+            echo 'Se ha creado una nueva contraseña, por favor revisa tu correo.';
 
         }else
         {

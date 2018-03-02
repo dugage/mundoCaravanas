@@ -14,13 +14,13 @@
 
 							<a href="#">
 
-								<img src="<?= base_url('assets/app/media/img//logos/logo.png') ?>">
+								<img src="<?= base_url('assets/app/media/img/logos/logo.png') ?>">
 
 							</a>
 
 						</div>
 
-						<?php $this->load->view("includes/form_login") ?>
+						<?php $this->load->view("includes/aside_left") ?>
 
 					</div>
 
@@ -29,6 +29,8 @@
 			</div>
 
 		</div>
+		
+		<?php $this->load->view("includes/aside_right") ?>
 
 	</div>
 

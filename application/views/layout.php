@@ -20,27 +20,35 @@
 
 		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 
+		<link rel="shortcut icon" href="<?= base_url('assets/demo/default/media/img/logo/favicon.ico') ?>" />
+
 		<title><?= $title; ?></title>
 
 		<?php $this->load->view("css") ?>
 
 	</head>
 
-	<body class="<?= $class ?>" <?php if(isset($reference)): ?>id="<?= $reference ?>"<?php endif ?>>
+	<body class="<?= $class ?>" <?php if(isset($reference)): ?>id="<?= $reference ?>"<?php endif ?> >
 
 		<?php if($typeLayout == "panel"): ?>
 
-			<?php $this->load->view("header") ?>
+			<div class="m-content--skin-light2 m-grid m-grid--hor m-grid--root m-page">
 
-			<?php $this->load->view($content) ?>
+				<?php $this->load->view("header") ?>
 
-			<?php $this->load->view("footer") ?>
+				<?php $this->load->view("content") ?>
+
+				<?php $this->load->view("footer") ?>
+
+			</div>
 
 		<?php elseif($typeLayout == "login"): ?>
 
 			<?php $this->load->view($content) ?>
 
 		<?php endif ?>
+
+		<?php $this->load->view("resources/modal") ?>
 
 		<?php $this->load->view("js") ?>
 		
