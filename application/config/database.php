@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => 'root',
-	'database' => 'andicerintranet',
+	'hostname' => '185.34.192.91',
+	'username' => 'dugage',
+	'password' => '&4222SFCrb',
+	'database' => 'mundocaravana',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

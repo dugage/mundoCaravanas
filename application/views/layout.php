@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 
-<html lang="<?= $lang ?>">
+<html lang="es">
 
 	<head>
 
 		<?php
 
 			$meta = array(
-		        array('name' => 'robots', 'content' => $robots),
+		        array('name' => 'robots', 'content' => 'noindex, follow'),
 		        array('name' => 'title', 'content' => $title),
 		        array('name' => 'Content-type', 'content' => 'text/html; charset=utf-8', 'type' => 'equiv')
 		    );
