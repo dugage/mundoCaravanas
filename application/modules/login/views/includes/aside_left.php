@@ -18,7 +18,7 @@
 
 			<div class="form-group m-form__group">
 
-				<input class="form-control m-input" type="text" placeholder="Email" name="email" autocomplete="off">
+				<input value="<?= set_value('email'); ?>" class="form-control m-input" type="text" placeholder="Email" name="email" autocomplete="off">
 
 			</div>
 
@@ -73,7 +73,7 @@
 
 		<div class="form-group m-form__group">
 
-			<input class="form-control m-input" type="text" placeholder="Email" name="email" id="m_email" autocomplete="off">
+			<input value="<?= set_value('email'); ?>" class="form-control m-input" type="text" placeholder="Email" name="email" id="m_email" autocomplete="off">
 
 		</div>
 
@@ -86,7 +86,7 @@
 			<?php if( $this->uri->segment(2) != 'passwordRecovery' ): ?>
 
 				<button id="m_login_forget_password_cancel" class="btn btn-outline-focus m-btn m-btn--pill m-btn--custom">
-					Cancelar
+					Volver
 				</button>
 
 			<?php else: ?>

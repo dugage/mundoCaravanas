@@ -9331,6 +9331,7 @@ body.m--skin-dark {
   .m-page-loader.m-page-loader--skin-dark.m-page-loader--non-block {
     background: transparent; }
 
+
 .m-datatable {
   display: none; }
 
@@ -30986,3 +30987,5 @@ body.m-content--skin-light2 {
       text-align: center;
       float: none;
       margin: 0 auto; } }
+
+

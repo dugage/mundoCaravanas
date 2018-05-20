@@ -37,6 +37,8 @@
 
 			</li>
 
+			<?php $this->doctrine->em->getRepository("Entities\\MenuPanel")->getMenu() ?>
+
 		</ul>
 
 	</div>

@@ -5,6 +5,7 @@
 <?php if($typeLayout == "panel"): ?>
 
 	<script src="<?= base_url('assets/app/js/dashboard.js') ?>" type="text/javascript"></script>
+	<script src="<?= base_url('assets/demo/default/custom/components/datatables/base/html-table.js') ?>" type="text/javascript"></script>
 
 <?php elseif($typeLayout == "login"): ?>
 

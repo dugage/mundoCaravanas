@@ -1,4 +1,6 @@
 <div class="m-stack__item m-stack__item--fluid m-header-head" id="m_header_nav">
+
+	<img style="width: 125px;margin-top: 5px;" src="<?= base_url('assets/app/media/img/logos/cropped-logo.png'); ?>" alt="logo">
 	
 	<button class="m-aside-header-menu-mobile-close  m-aside-header-menu-mobile-close--skin-dark " id="m_aside_header_menu_mobile_close_btn">
 
@@ -21,7 +23,7 @@
 				<li class="
 	m-nav__item m-dropdown m-dropdown--large m-dropdown--arrow m-dropdown--align-center m-dropdown--mobile-full-width m-dropdown--skin-light	m-list-search m-list-search--skin-light" >
 
-					<a title="Cerrar cesión" href="#" class="m-nav__link m-dropdown__toggle">
+					<a title="Cerrar cesión" href="<?= site_url('login/logout') ?>" class="m-nav__link m-dropdown__toggle">
 
 						<span class="m-nav__link-icon">
 

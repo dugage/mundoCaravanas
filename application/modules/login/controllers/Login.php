@@ -42,7 +42,7 @@ class Login  extends MX_Controller
 	        	$pass = $this->input->post('password');
                 //echo encode_string($pass);
 	        	//consultamos la entidad Usuarios, toamendo emial como clave y @email como valor
-	        	$usuario = $this->doctrine->em->getRepository("Entities\\Users")->findOneBy(["email" => $email]);
+	        	$usuario = $this->doctrine->em->getRepository("Entities\\Users")->findOneBy(["email" => $email,"rol" => 1]);
 	        	//si @usuarios es distinto de null, entonces comprobamos si el pass pasado desde el formulario es correcto
                 if($usuario)
 	        	{
@@ -81,7 +81,7 @@ class Login  extends MX_Controller
     public function passwordRecovery() 
     {
 
-        $data['title'] = "Mundo Caravanas | Login";
+        $data['title'] = "Mundo Caravanas | Recuperar contraseña";
         $data['typeLayout'] = "login";
         $data['view'] = strtolower(__FUNCTION__."_".$this->nameClass);
         $data['content'] = strtolower(__FUNCTION__."_".$this->nameClass);
@@ -97,7 +97,7 @@ class Login  extends MX_Controller
 
             $email = $this->input->post('email');
             //comprobamos si existe el usuario
-            $isUser = $this->doctrine->em->getRepository("Entities\\Users")->findOneBy(["email" => $email]);
+            $isUser = $this->doctrine->em->getRepository("Entities\\Users")->findOneBy(["email" => $email,"rol" => 1]);
 
             if( $isUser == null ) {
 
@@ -127,7 +127,7 @@ class Login  extends MX_Controller
                                 'to' => $email,
                                 'cc' => FALSE,
                                 'bcc' => FALSE,
-                                'print' => FALSE,
+                                'print' => TRUE,
                                 'debugger' => TRUE,
                                 'tamplate_db' => FALSE
                             );
@@ -154,32 +154,6 @@ class Login  extends MX_Controller
         }
 
         $this->load->view('layout', $data);
-
-
-#####
-/*
-        if( $this->input->is_ajax_request() )
-        {
-            //recuperamos el email
-            //$email = $this->input->post('email');
-
-            //generamos una nueva contraseña
-            $pass = generate_password();
-
-            //enviamos correo
-            $send = send_email($email);
-
-            //enviamos el email con la nueva contraseña
-            echo 'Se ha creado una nueva contraseña, por favor revisa tu correo.';
-
-        }else
-        {
-            show_404();
-        }
-*/
-#####
-
-
 
     }
 
