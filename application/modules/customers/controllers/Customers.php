@@ -6,6 +6,7 @@ class Customers  extends MX_Controller
 	private $nameClass = null;
 	private $class = null;
 	private $nameModule = null;
+	private $customerid = 0;
 	private $breadCrumbs = array();
 	private $tableTh = array();//configura la cabecera de las tablas
 
@@ -184,6 +185,7 @@ class Customers  extends MX_Controller
 		}
 		//obtenemos el formato de pago seleccionado
 		$payType = $this->doctrine->em->find("Entities\\Paytypes", $this->input->post('paytype_id'));
+
 		//seteamos los datos
 		$item->setName($this->input->post('name'));
 		$item->setSurname($this->input->post('surname'));
@@ -274,21 +276,34 @@ class Customers  extends MX_Controller
 	//método para añadir veículo, donde el id hace referencia al id de customer 
 	//en la tabla customer
 	public function setVehicle($id = 0) {
-
+		
 		if( $id > 0 ) {
+
 			//instaciamos la entidad Vehicles
 			$vehicle = new Entities\Vehicles;
+
+			//obtenemos las id's
+			$customer = $this->doctrine->em->find("Entities\\Customers", $id);
+			$parking = $this->doctrine->em->find("Entities\\Parking", 1);
+			$type = $this->doctrine->em->find("Entities\\Customers", $this->input->post('vehicle_types'));
+			$marca = $this->doctrine->em->find("Entities\\Customers", $this->input->post('vehicle_brands'));
+			
 			//seteamos los datos
-			$vehicle->setName();
-			$vehicle->setName();
-			$vehicle->setName();
-			$vehicle->setName();
-			$vehicle->setName();
-			$vehicle->setName();
+			$vehicle->setCustomer($customerid);
+			$vehicle->setParking($parking->getId());
+			$vehicle->setVehicleTypes($this->input->post('vehicle_types'));
+			$vehicle->setVehicleBrands($this->input->post('vehicle_brands'));
+			$vehicle->setYear($this->input->post('year'));
+			$vehicle->setLicensePlate($this->input->post('license_plate'));
+			$vehicle->setModel($this->input->post('model'));
+			$vehicle->setVin($this->input->post('vin'));
+
 			//guardamos
 			$this->doctrine->em->persist($vehicle);
-        	$this->doctrine->em->flush();
-
+			$this->doctrine->em->flush()){
+			
+			//redireccionamos
+	        redirect(site_url(strtolower($this->nameModule)));
 
 		}else{
 
@@ -296,12 +311,40 @@ class Customers  extends MX_Controller
 		}
 		
 	}
+
+
+
 	//método para editar vehículo donde el id hace referencia 
 	//al id del vehículo en la tabla vehículo
-	public function editVehícle($id = 0)
+	public function editVehicle($id = 0)
 	{
 		if( $id > 0 ) {
+
+			//realizamos una consulta pasando el id para obtener el item que vamos a editar
+			$vehicle = $this->doctrine->em->find("Entities\\Customers", $id);
+
+			//obtenemos las id's
+			$customer = $this->doctrine->em->find("Entities\\Customers", $id);
+			$parking = $this->doctrine->em->find("Entities\\Parking", 1);
+			$type = $this->doctrine->em->find("Entities\\Customers", $this->input->post('vehicle_types'));
+			$marca = $this->doctrine->em->find("Entities\\Customers", $this->input->post('vehicle_brands'));
 			
+			//seteamos los datos
+			$vehicle->setCustomer($customerid);
+			$vehicle->setParking($parking->getId());
+			$vehicle->setVehicleTypes($this->input->post('vehicle_types'));
+			$vehicle->setVehicleBrands($this->input->post('vehicle_brands'));
+			$vehicle->setYear($this->input->post('year'));
+			$vehicle->setLicensePlate($this->input->post('license_plate'));
+			$vehicle->setModel($this->input->post('model'));
+			$vehicle->setVin($this->input->post('vin'));
+
+			//guardamos
+			$this->doctrine->em->persist($vehicle);
+			$this->doctrine->em->flush()){
+			
+			//redireccionamos
+	        redirect(site_url(strtolower($this->nameModule)));
 
 		}else{
 
@@ -314,7 +357,14 @@ class Customers  extends MX_Controller
 	public function deleteVehicle($id)
 	{
 		if( $id > 0 ) {
-			
+
+			//obtenemos el dato mediante id
+	        $getRow = $this->doctrine->em->find("Entities\\Vehicles", $id);
+	        //eliminamos el item
+	        $this->doctrine->em->remove($getRow);
+	        $this->doctrine->em->flush();
+	        //redireccionamos
+	        redirect(site_url(strtolower($this->nameModule)));
 
 		}else{
 

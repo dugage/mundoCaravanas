@@ -1,10 +1,13 @@
 <form action="<?= site_url("customers/setVehicle/".$id) ?>" method="post" class="m-form">
 
+		<?= validation_errors(); ?>
+
+
 	<div class="form-group m-form__group">
 
 		<label for="exampleSelect1">Tipo de vehículo:</label>
 
-		<select name="paytype_id" class="form-control m-input m-input--square" id="paytype_id">
+		<select name="vehicle_types" class="form-control m-input m-input--square" id="vehicle_types">
 			
 			<option value="">  </option>
 
@@ -21,9 +24,9 @@
 
 	<div class="form-group m-form__group">
 
-		<label for="exampleSelect1">Marca:</label>
+		<label for="Marca">Marca:</label>
 
-		<select name="paytype_id" class="form-control m-input m-input--square" id="paytype_id">
+		<select name="vehicle_brands" class="form-control m-input m-input--square" id="vehicle_brands">
 			
 			<option value="">  </option>
 
@@ -40,42 +43,54 @@
 	
 	<div class="form-group m-form__group">
 
-		<label for="name">
+		<label for="Modelo">
 			Modelo:
 		</label>
 
-		<input name="name" value="" class="form-control m-input" placeholder="Introduce el nombre del cliente" type="text">
+		<input name="customer" value="" class="form-control m-input" placeholder="Introduce el modelo" type="text">
 
 	</div>
 
 	<div class="form-group m-form__group">
 
-		<label for="name">
+		<label for="license_plate">
 			Matrícula:
 		</label>
 
-		<input name="name" value="" class="form-control m-input" placeholder="Introduce el nombre del cliente" type="text">
+		<input name="licence_plate" value="" class="form-control m-input" placeholder="Introduce número de matrícula" type="text">
 
 	</div>
 
 	<div class="form-group m-form__group">
 
-		<label for="name">
+		<label for="vin">
 			Número de bastidor:
 		</label>
 
-		<input name="name" value="" class="form-control m-input" placeholder="Introduce el nombre del cliente" type="text">
+		<input name="vin" value="" class="form-control m-input" placeholder="Introduce número de chasis" type="text">
 
 	</div>
 
 	<div class="form-group m-form__group">
 
-		<label for="name">
+		<label for="year">
 			Año:
 		</label>
 
-		<input name="name" value="" class="form-control m-input" placeholder="Introduce el nombre del cliente" type="text">
+		<input name="year" value="" class="form-control m-input" placeholder="Introduce el año" type="number">
 
+	</div>
+
+	<div class="form-group m-form__group" style="display: flex;justify-content: flex-end;">
+		<button type="button" class="btn btn-secondary" data-dismiss="modal"> Cerrar
+
+		</button>
+
+		<button name="submit-form" type="submit" class="btn btn-primary send-form">
+
+			<i class="la la-floppy-o"></i> Guardar
+
+		</button>
 	</div>
 
 </form>
