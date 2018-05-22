@@ -12,3 +12,5 @@
 	<script src="<?= base_url('assets/snippets/pages/user/login.js') ?>" type="text/javascript"></script>
 
 <?php endif ?>
+<script src="<?= base_url('assets/app/js/ajax_actions.js') ?>" type="text/javascript"></script>
+<script src="<?= base_url('assets/app/js/app_actions.js') ?>" type="text/javascript"></script>

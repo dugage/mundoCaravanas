@@ -238,10 +238,88 @@ class Customers  extends MX_Controller
 
 		//obtenemos y pasamos a la vista los datos
         $data['getResult'] = $this->doctrine->em->getRepository("Entities\\Vehicles")->findBy(["customer" => $id]);
-        $data['modal'] = 'hola';
+        $data['modal'] = site_url('customers/');
         $data['image'] = true;
+        $data['id'] = $id;
+        $data['title'] = 'Vehículo';
 		//devolvemos la tabla
 		return $this->load->view("resources/table",$data,true);
+	}
+
+	public function getForm()
+	{
+		//si es un request ajax, en caso contrario 404
+		if ( $this->input->is_ajax_request() ) {
+		   	//almacenamos el id del cliente para reliacionarlo con el vehículo
+		   	$data['id'] = $this->input->post('id');
+		   	$formType = $this->input->post('form_type');
+		   	//Obtenemos los tipos de vehículos
+        	$data['getVehiclesTypes'] = $this->doctrine->em->getRepository("Entities\\VehicleTypes")->findAll();
+        	//Obtenemos todas las márcas
+        	$data['getVehiclesBrands'] = $this->doctrine->em->getRepository("Entities\\VehicleBrands")->findAll();
+        	//comprobamos si el tipo de formulario es igual a edit, si es el caso pàsamos los datos del vehículo que vamos
+        	//a editar.
+        	if( $formType == "edit" )
+        		$data['getRow'] = $this->doctrine->em->find("Entities\\Vehicles", $data['id']); 
+        	
+		   	//pasamos el formulario para dibujarlo en el modal
+			echo $this->load->view("partials/form_vehicle_".$formType,$data,true);
+
+		}else{
+
+			show_404();
+		}
+		
+	}
+	//método para añadir veículo, donde el id hace referencia al id de customer 
+	//en la tabla customer
+	public function setVehicle($id = 0) {
+
+		if( $id > 0 ) {
+			//instaciamos la entidad Vehicles
+			$vehicle = new Entities\Vehicles;
+			//seteamos los datos
+			$vehicle->setName();
+			$vehicle->setName();
+			$vehicle->setName();
+			$vehicle->setName();
+			$vehicle->setName();
+			$vehicle->setName();
+			//guardamos
+			$this->doctrine->em->persist($vehicle);
+        	$this->doctrine->em->flush();
+
+
+		}else{
+
+			show_404();
+		}
+		
+	}
+	//método para editar vehículo donde el id hace referencia 
+	//al id del vehículo en la tabla vehículo
+	public function editVehícle($id = 0)
+	{
+		if( $id > 0 ) {
+			
+
+		}else{
+
+			show_404();
+		}
+	}
+	//método para borrar el vehículo, donde id hace referencia 
+	//al id del vehículo en la tabla vehículo, recuerda que para
+	//borrar un vehículo hay que borrar toda la documentoación del mismo
+	public function deleteVehicle($id)
+	{
+		if( $id > 0 ) {
+			
+
+		}else{
+
+			show_404();
+		}
 	}
 
 

@@ -7,7 +7,7 @@ use Doctrine\Mapping as ORM;
 /**
  * Vehicles
  *
- * @Table(name="VEHICLES", indexes={@Index(name="ve_pa", columns={"parking_id"}), @Index(name="ve_ty", columns={"vehicle_types_id"}), @Index(name="ve_br", columns={"vehicle_brands_id"}), @Index(name="customer_id", columns={"customer_id"})})
+ * @Table(name="VEHICLES", indexes={@Index(name="customer_id", columns={"customer_id"}), @Index(name="parking_id", columns={"parking_id"}), @Index(name="vehicle_types_id", columns={"vehicle_types_id"}), @Index(name="vehicle_brands_id", columns={"vehicle_brands_id"})})
  * @Entity
  */
 class Vehicles
@@ -17,7 +17,7 @@ class Vehicles
      *
      * @Column(name="id", type="integer", nullable=false)
      * @Id
-     * @GeneratedValue(strategy="NONE")
+     * @GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
@@ -78,6 +78,16 @@ class Vehicles
     private $upDate = 'CURRENT_TIMESTAMP';
 
     /**
+     * @var \Parking
+     *
+     * @ManyToOne(targetEntity="Parking")
+     * @JoinColumns({
+     *   @JoinColumn(name="parking_id", referencedColumnName="id")
+     * })
+     */
+    private $parking;
+
+    /**
      * @var \Customers
      *
      * @ManyToOne(targetEntity="Customers")
@@ -88,40 +98,24 @@ class Vehicles
     private $customer;
 
     /**
-     * @var \VehicleBrands
-     *
-     * @Id
-     * @GeneratedValue(strategy="NONE")
-     * @OneToOne(targetEntity="VehicleBrands")
-     * @JoinColumns({
-     *   @JoinColumn(name="vehicle_brands_id", referencedColumnName="id")
-     * })
-     */
-    private $vehicleBrands;
-
-    /**
-     * @var \Parking
-     *
-     * @Id
-     * @GeneratedValue(strategy="NONE")
-     * @OneToOne(targetEntity="Parking")
-     * @JoinColumns({
-     *   @JoinColumn(name="parking_id", referencedColumnName="id")
-     * })
-     */
-    private $parking;
-
-    /**
      * @var \VehicleTypes
      *
-     * @Id
-     * @GeneratedValue(strategy="NONE")
-     * @OneToOne(targetEntity="VehicleTypes")
+     * @ManyToOne(targetEntity="VehicleTypes")
      * @JoinColumns({
      *   @JoinColumn(name="vehicle_types_id", referencedColumnName="id")
      * })
      */
     private $vehicleTypes;
+
+    /**
+     * @var \VehicleBrands
+     *
+     * @ManyToOne(targetEntity="VehicleBrands")
+     * @JoinColumns({
+     *   @JoinColumn(name="vehicle_brands_id", referencedColumnName="id")
+     * })
+     */
+    private $vehicleBrands;
 
 
 }

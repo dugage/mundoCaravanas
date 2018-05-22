@@ -33,7 +33,7 @@
 			
 			<?php if( isset($modal) ): ?>
 
-				<a href="#" class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air" data-toggle="modal" data-target="#appModal">
+				<a id="<?= $id ?>" href="#" data-title="<?= $title ?>" data-url="<?= $modal ?>" class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air modal-set" data-toggle="modal" data-target="#appModal">
 					<span><i class="fa flaticon-add"></i><span> Crear</span></span>
 				</a>
 
@@ -119,7 +119,7 @@
 					
 					<?php if( isset($modal) ): ?>
 
-						<a href="#" class="btn btn-warning m-btn m-btn--icon m-btn--icon-only">
+						<a href="#" id="<?= $id ?>" data-title="<?= $title ?>" data-url="<?= $modal ?>" class="btn btn-warning m-btn m-btn--icon m-btn--icon-only modal-edit" data-toggle="modal" data-target="#appModal">
 							<i class="fa flaticon-edit-1"></i>
 						</a>
 

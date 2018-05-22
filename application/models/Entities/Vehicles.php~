@@ -5,7 +5,7 @@ namespace Entities;
 /**
  * Vehicles
  *
- * @Table(name="VEHICLES", indexes={@Index(name="customer_id", columns={"customer_id"}), @Index(name="parking_id", columns={"parking_id"}), @Index(name="vehicle_types_id", columns={"vehicle_types_id"}), @Index(name="vehicle_brands_id", columns={"vehicle_brands_id"})})
+ * @Table(name="VEHICLES", indexes={@Index(name="ve_pa", columns={"parking_id"}), @Index(name="ve_ty", columns={"vehicle_types_id"}), @Index(name="ve_br", columns={"vehicle_brands_id"}), @Index(name="customer_id", columns={"customer_id"})})
  * @Entity
  */
 class Vehicles
@@ -15,7 +15,7 @@ class Vehicles
      *
      * @Column(name="id", type="integer", precision=0, scale=0, nullable=false, unique=false)
      * @Id
-     * @GeneratedValue(strategy="IDENTITY")
+     * @GeneratedValue(strategy="NONE")
      */
     private $id;
 
@@ -76,16 +76,6 @@ class Vehicles
     private $upDate;
 
     /**
-     * @var \Parking
-     *
-     * @ManyToOne(targetEntity="Parking")
-     * @JoinColumns({
-     *   @JoinColumn(name="parking_id", referencedColumnName="id", nullable=true)
-     * })
-     */
-    private $parking;
-
-    /**
      * @var \Customers
      *
      * @ManyToOne(targetEntity="Customers")
@@ -96,25 +86,55 @@ class Vehicles
     private $customer;
 
     /**
-     * @var \VehicleTypes
-     *
-     * @ManyToOne(targetEntity="VehicleTypes")
-     * @JoinColumns({
-     *   @JoinColumn(name="vehicle_types_id", referencedColumnName="id", nullable=true)
-     * })
-     */
-    private $vehicleTypes;
-
-    /**
      * @var \VehicleBrands
      *
-     * @ManyToOne(targetEntity="VehicleBrands")
+     * @Id
+     * @GeneratedValue(strategy="NONE")
+     * @OneToOne(targetEntity="VehicleBrands")
      * @JoinColumns({
      *   @JoinColumn(name="vehicle_brands_id", referencedColumnName="id", nullable=true)
      * })
      */
     private $vehicleBrands;
 
+    /**
+     * @var \Parking
+     *
+     * @Id
+     * @GeneratedValue(strategy="NONE")
+     * @OneToOne(targetEntity="Parking")
+     * @JoinColumns({
+     *   @JoinColumn(name="parking_id", referencedColumnName="id", nullable=true)
+     * })
+     */
+    private $parking;
+
+    /**
+     * @var \VehicleTypes
+     *
+     * @Id
+     * @GeneratedValue(strategy="NONE")
+     * @OneToOne(targetEntity="VehicleTypes")
+     * @JoinColumns({
+     *   @JoinColumn(name="vehicle_types_id", referencedColumnName="id", nullable=true)
+     * })
+     */
+    private $vehicleTypes;
+
+
+    /**
+     * Set id
+     *
+     * @param integer $id
+     *
+     * @return Vehicles
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
 
     /**
      * Get id
@@ -319,37 +339,13 @@ class Vehicles
     }
 
     /**
-     * Set parking
-     *
-     * @param \Parking $parking
-     *
-     * @return Vehicles
-     */
-    public function setParking(\Parking $parking = null)
-    {
-        $this->parking = $parking;
-
-        return $this;
-    }
-
-    /**
-     * Get parking
-     *
-     * @return \Parking
-     */
-    public function getParking()
-    {
-        return $this->parking;
-    }
-
-    /**
      * Set customer
      *
      * @param \Customers $customer
      *
      * @return Vehicles
      */
-    public function setCustomer(\Customers $customer = null)
+    public function setCustomer($customer)
     {
         $this->customer = $customer;
 
@@ -367,37 +363,13 @@ class Vehicles
     }
 
     /**
-     * Set vehicleTypes
-     *
-     * @param \VehicleTypes $vehicleTypes
-     *
-     * @return Vehicles
-     */
-    public function setVehicleTypes(\VehicleTypes $vehicleTypes = null)
-    {
-        $this->vehicleTypes = $vehicleTypes;
-
-        return $this;
-    }
-
-    /**
-     * Get vehicleTypes
-     *
-     * @return \VehicleTypes
-     */
-    public function getVehicleTypes()
-    {
-        return $this->vehicleTypes;
-    }
-
-    /**
      * Set vehicleBrands
      *
      * @param \VehicleBrands $vehicleBrands
      *
      * @return Vehicles
      */
-    public function setVehicleBrands(\VehicleBrands $vehicleBrands = null)
+    public function setVehicleBrands($vehicleBrands)
     {
         $this->vehicleBrands = $vehicleBrands;
 
@@ -412,6 +384,54 @@ class Vehicles
     public function getVehicleBrands()
     {
         return $this->vehicleBrands;
+    }
+
+    /**
+     * Set parking
+     *
+     * @param \Parking $parking
+     *
+     * @return Vehicles
+     */
+    public function setParking($parking)
+    {
+        $this->parking = $parking;
+
+        return $this;
+    }
+
+    /**
+     * Get parking
+     *
+     * @return \Parking
+     */
+    public function getParking()
+    {
+        return $this->parking;
+    }
+
+    /**
+     * Set vehicleTypes
+     *
+     * @param \VehicleTypes $vehicleTypes
+     *
+     * @return Vehicles
+     */
+    public function setVehicleTypes($vehicleTypes)
+    {
+        $this->vehicleTypes = $vehicleTypes;
+
+        return $this;
+    }
+
+    /**
+     * Get vehicleTypes
+     *
+     * @return \VehicleTypes
+     */
+    public function getVehicleTypes()
+    {
+        return $this->vehicleTypes;
     }
 }
 
