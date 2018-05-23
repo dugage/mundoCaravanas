@@ -57,11 +57,13 @@ $route['clientes'] = 'customers';
 $route['clientes/add'] = 'customers/add';
 $route['clientes/edit/(:num)'] = 'customers/edit/$1';
 $route['clientes/delete/(:num)'] = 'customers/delete/$1';
+$route['clientes/vehiculos/delete/(:num)'] = 'customers/deleteVehicle/$1';
 //rutas para paytypes
 $route['tipos-de-pago'] = 'paytypes';
 $route['tipos-de-pago/add'] = 'paytypes/add';
 $route['tipos-de-pago/edit/(:num)'] = 'paytypes/edit/$1';
 $route['tipos-de-pago/delete/(:num)'] = 'paytypes/delete/$1';
+
 //rutas para vehiclesbrands
 $route['marcas'] = 'vehiclebrands';
 $route['marcas/add'] = 'vehiclebrands/add';

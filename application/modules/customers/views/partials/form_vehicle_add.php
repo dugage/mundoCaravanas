@@ -5,7 +5,7 @@
 
 	<div class="form-group m-form__group">
 
-		<label for="exampleSelect1">Tipo de vehículo:</label>
+		<label for="exampleSelect1">Tipo de vehículo: <span style="color:red;">*</span></label>
 
 		<select name="vehicle_types" class="form-control m-input m-input--square" id="vehicle_types">
 			
@@ -24,7 +24,7 @@
 
 	<div class="form-group m-form__group">
 
-		<label for="Marca">Marca:</label>
+		<label for="Marca">Marca: <span style="color:red;">*</span></label>
 
 		<select name="vehicle_brands" class="form-control m-input m-input--square" id="vehicle_brands">
 			
@@ -47,7 +47,7 @@
 			Modelo:
 		</label>
 
-		<input name="customer" value="" class="form-control m-input" placeholder="Introduce el modelo" type="text">
+		<input name="model" value="" class="form-control m-input" placeholder="Introduce el modelo" type="text">
 
 	</div>
 
@@ -57,7 +57,7 @@
 			Matrícula:
 		</label>
 
-		<input name="licence_plate" value="" class="form-control m-input" placeholder="Introduce número de matrícula" type="text">
+		<input name="license_plate" value="" class="form-control m-input" placeholder="Introduce número de matrícula" type="text">
 
 	</div>
 
@@ -74,17 +74,36 @@
 	<div class="form-group m-form__group">
 
 		<label for="year">
-			Año:
+			Año: <span style="color:red;">*</span>
 		</label>
 
-		<input name="year" value="" class="form-control m-input" placeholder="Introduce el año" type="number">
+		<input name="year" value="" class="form-control m-input" placeholder="Introduce el año" type="text">
+
+	</div>
+
+	<div class="form-group m-form__group">
+
+		<label for="Parking">Parking: <span style="color:red;">*</span></label>
+
+
+
+		<select name="parking" class="form-control m-input m-input--square" id="parking">
+			
+			<option value="">  </option>
+			
+
+			<?php foreach ($getParking as $key => $parking): ?>
+			
+				<option value="<?= $parking->getId() ?>"><?= $parking->getNumber() ?></option>
+
+			<?php endforeach ?>
+			
+			
+		</select>
 
 	</div>
 
 	<div class="form-group m-form__group" style="display: flex;justify-content: flex-end;">
-		<button type="button" class="btn btn-secondary" data-dismiss="modal"> Cerrar
-
-		</button>
 
 		<button name="submit-form" type="submit" class="btn btn-primary send-form">
 

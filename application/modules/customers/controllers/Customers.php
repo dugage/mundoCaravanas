@@ -6,7 +6,7 @@ class Customers  extends MX_Controller
 	private $nameClass = null;
 	private $class = null;
 	private $nameModule = null;
-	private $customerid = 0;
+//	private $customerid = 0;
 	private $breadCrumbs = array();
 	private $tableTh = array();//configura la cabecera de las tablas
 
@@ -226,6 +226,7 @@ class Customers  extends MX_Controller
 							'VehicleTypes' => 'Tipo',
 							'VehicleBrands' => 'Marca',
 							'Model' => 'Modelo',
+							'Year' => 'Año', 
 							'LicensePlate' => 'Matrícula',
 							'Parking' => 'Plaza',
 							'DischargeDate' => 'Alta'
@@ -259,9 +260,13 @@ class Customers  extends MX_Controller
         	$data['getVehiclesTypes'] = $this->doctrine->em->getRepository("Entities\\VehicleTypes")->findAll();
         	//Obtenemos todas las márcas
         	$data['getVehiclesBrands'] = $this->doctrine->em->getRepository("Entities\\VehicleBrands")->findAll();
+        	//Obtenemos todos los parking 
+        	$data['getParking'] = $this->doctrine->em->getRepository("Entities\\Parking")->findAll();
+        	
         	//comprobamos si el tipo de formulario es igual a edit, si es el caso pàsamos los datos del vehículo que vamos
         	//a editar.
         	if( $formType == "edit" )
+
         		$data['getRow'] = $this->doctrine->em->find("Entities\\Vehicles", $data['id']); 
         	
 		   	//pasamos el formulario para dibujarlo en el modal
@@ -283,15 +288,15 @@ class Customers  extends MX_Controller
 
 			//obtenemos las id's
 			$customer = $this->doctrine->em->find("Entities\\Customers", $id);
-			$parking = $this->doctrine->em->find("Entities\\Parking", 1);
-			$type = $this->doctrine->em->find("Entities\\VehicleTypes", $this->input->post('vehicle_types'));
-			$marca = $this->doctrine->em->find("Entities\\VehicleBrands", $this->input->post('vehicle_brands'));
+			$parking = $this->doctrine->em->find("Entities\\Parking", $this->input->post('parking'));
+			$vehicletype = $this->doctrine->em->find("Entities\\VehicleTypes", $this->input->post('vehicle_types'));
+			$vehiclebrand = $this->doctrine->em->find("Entities\\VehicleBrands", $this->input->post('vehicle_brands'));
 			
 			//seteamos los datos
 			$vehicle->setCustomer($customer);
 			$vehicle->setParking($parking);
-			$vehicle->setVehicleTypes($type);
-			$vehicle->setVehicleBrands($marca );
+			$vehicle->setVehicleTypes($vehicletype);
+			$vehicle->setVehicleBrands($vehiclebrand);
 			$vehicle->setYear($this->input->post('year'));
 			$vehicle->setLicensePlate($this->input->post('license_plate'));
 			$vehicle->setModel($this->input->post('model'));
@@ -320,26 +325,24 @@ class Customers  extends MX_Controller
 		if( $id > 0 ) {
 
 			//realizamos una consulta pasando el id para obtener el item que vamos a editar
-			$vehicle = $this->doctrine->em->find("Entities\\Customers", $id);
-
+			$vehicle = $this->doctrine->em->find("Entities\\Vehicles", $id);
 			//obtenemos las id's
-			$customer = $this->doctrine->em->find("Entities\\Customers", $id);
-			$parking = $this->doctrine->em->find("Entities\\Parking", 1);
-			$type = $this->doctrine->em->find("Entities\\Customers", $this->input->post('vehicle_types'));
-			$marca = $this->doctrine->em->find("Entities\\Customers", $this->input->post('vehicle_brands'));
+			$customer = $this->doctrine->em->find("Entities\\Customers", $vehicle->getCustomer());
+			$parking = $this->doctrine->em->find("Entities\\Parking", $this->input->post('parking'));
+			$vehicletype = $this->doctrine->em->find("Entities\\VehicleTypes", $this->input->post('vehicle_types'));
+			$vehiclebrand = $this->doctrine->em->find("Entities\\VehicleBrands", $this->input->post('vehicle_brands'));
 			
 			//seteamos los datos
-			$vehicle->setCustomer($customerid);
-			$vehicle->setParking($parking->getId());
-			$vehicle->setVehicleTypes($this->input->post('vehicle_types'));
-			$vehicle->setVehicleBrands($this->input->post('vehicle_brands'));
+			$vehicle->setCustomer($customer);
+			$vehicle->setParking($parking);
+			$vehicle->setVehicleTypes($vehicletype);
+			$vehicle->setVehicleBrands($vehiclebrand);
 			$vehicle->setYear($this->input->post('year'));
 			$vehicle->setLicensePlate($this->input->post('license_plate'));
 			$vehicle->setModel($this->input->post('model'));
 			$vehicle->setVin($this->input->post('vin'));
 
 			//guardamos
-			$this->doctrine->em->persist($vehicle);
 			$this->doctrine->em->flush();
 			
 			//redireccionamos
