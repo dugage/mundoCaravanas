@@ -115,6 +115,13 @@ class Vehicles
      */
     private $vehicleBrands;
 
+    public function __construct()
+    {
+        $this->dischargeDate = new \DateTime("now");
+        $this->dischargeDateCode = date("Y-m-d");
+        $this->upDate = new \DateTime("now");
+    }
+
 
     /**
      * Get id
@@ -325,7 +332,7 @@ class Vehicles
      *
      * @return Vehicles
      */
-    public function setParking(\Parking $parking = null)
+    public function setParking($parking)
     {
         $this->parking = $parking;
 
@@ -349,7 +356,7 @@ class Vehicles
      *
      * @return Vehicles
      */
-    public function setCustomer(\Customers $customer = null)
+    public function setCustomer($customer)
     {
         $this->customer = $customer;
 
@@ -373,7 +380,7 @@ class Vehicles
      *
      * @return Vehicles
      */
-    public function setVehicleTypes(\VehicleTypes $vehicleTypes = null)
+    public function setVehicleTypes($vehicleTypes)
     {
         $this->vehicleTypes = $vehicleTypes;
 
@@ -397,7 +404,7 @@ class Vehicles
      *
      * @return Vehicles
      */
-    public function setVehicleBrands(\VehicleBrands $vehicleBrands = null)
+    public function setVehicleBrands($vehicleBrands )
     {
         $this->vehicleBrands = $vehicleBrands;
 

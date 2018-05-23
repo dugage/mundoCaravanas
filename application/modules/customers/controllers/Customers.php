@@ -278,21 +278,20 @@ class Customers  extends MX_Controller
 	public function setVehicle($id = 0) {
 		
 		if( $id > 0 ) {
-
 			//instaciamos la entidad Vehicles
 			$vehicle = new Entities\Vehicles;
 
 			//obtenemos las id's
 			$customer = $this->doctrine->em->find("Entities\\Customers", $id);
 			$parking = $this->doctrine->em->find("Entities\\Parking", 1);
-			$type = $this->doctrine->em->find("Entities\\Customers", $this->input->post('vehicle_types'));
-			$marca = $this->doctrine->em->find("Entities\\Customers", $this->input->post('vehicle_brands'));
+			$type = $this->doctrine->em->find("Entities\\VehicleTypes", $this->input->post('vehicle_types'));
+			$marca = $this->doctrine->em->find("Entities\\VehicleBrands", $this->input->post('vehicle_brands'));
 			
 			//seteamos los datos
-			$vehicle->setCustomer($customerid);
-			$vehicle->setParking($parking->getId());
-			$vehicle->setVehicleTypes($this->input->post('vehicle_types'));
-			$vehicle->setVehicleBrands($this->input->post('vehicle_brands'));
+			$vehicle->setCustomer($customer);
+			$vehicle->setParking($parking);
+			$vehicle->setVehicleTypes($type);
+			$vehicle->setVehicleBrands($marca );
 			$vehicle->setYear($this->input->post('year'));
 			$vehicle->setLicensePlate($this->input->post('license_plate'));
 			$vehicle->setModel($this->input->post('model'));
@@ -300,10 +299,10 @@ class Customers  extends MX_Controller
 
 			//guardamos
 			$this->doctrine->em->persist($vehicle);
-			$this->doctrine->em->flush()){
+			$this->doctrine->em->flush();
 			
 			//redireccionamos
-	        redirect(site_url(strtolower($this->nameModule)));
+	        redirect(strtolower($this->nameModule.'/edit/'.$id));
 
 		}else{
 
@@ -341,7 +340,7 @@ class Customers  extends MX_Controller
 
 			//guardamos
 			$this->doctrine->em->persist($vehicle);
-			$this->doctrine->em->flush()){
+			$this->doctrine->em->flush();
 			
 			//redireccionamos
 	        redirect(site_url(strtolower($this->nameModule)));
