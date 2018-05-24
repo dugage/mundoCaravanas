@@ -2,7 +2,7 @@
 
 	<?= validation_errors(); ?>
 
-<?php //var_dump($getRow->getVehicleTypes()); ?>
+<?php //echo $getRow->getParking()->getNumber(); ?>
 
 
 	<div class="form-group m-form__group">
@@ -12,7 +12,7 @@
 
 		<select name="vehicle_types" class="form-control m-input m-input--square" id="vehicle_types">
 			
-			<option value="">  </option>
+			<option value=""><?= $getRow->getVehicleTypes()->getId() ?> </option>
 
 			<?php foreach ($getVehiclesTypes as $key => $type): ?>
 			
@@ -94,10 +94,13 @@
 			
 			<option value="">  </option>
 			
+			<option value="<?= $getRow->getParking()->getId() ?>" selected><?= $getRow->getParking()->getNumber(); ?>
+</option>
+
 
 			<?php foreach ($getParking as $key => $parking): ?>
 			
-				<option value="<?= $parking->getId() ?>" <?= $getRow->getParking()->getId() == $parking->getId() ? 'selected':'' ?> ><?= $parking->getNumber() ?></option>
+				<option value="<?= $parking->getId() ?>" ><?= $parking->getNumber() ?></option>
 
 			<?php endforeach ?>
 			

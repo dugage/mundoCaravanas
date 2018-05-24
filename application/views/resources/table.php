@@ -82,7 +82,11 @@
 	</thead>
 	
 	<tbody>
+	<pre>
+		
 
+	</pre>
+	
 	<?php if( $getResult ): ?>
 
 		<?php foreach ($getResult as $key => $result): ?>
@@ -123,7 +127,7 @@
 							<i class="fa flaticon-edit-1"></i>
 						</a>
 
-						<a href="<?= site_url('clientes/vehiculos/delete/'. $id ) ?>" class="btn btn-danger m-btn m-btn--icon m-btn--icon-only">
+						<a href="<?= site_url(strtolower($nameModule). '/delete/' .$id ) ?>" class="btn btn-danger m-btn m-btn--icon m-btn--icon-only">
 							<i class="fa flaticon-circle"></i>
 						</a>
 
