@@ -34,11 +34,11 @@
 
 				</button>
 
-				<button type="button" class="btn btn-primary send-form">
+				<!--<button type="button" class="btn btn-primary send-form">
 
 					<i class="la la-floppy-o"></i> Guardar
 
-				</button>
+				</button>-->
 
 			</div>
 	

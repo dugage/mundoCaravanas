@@ -58,6 +58,7 @@ $route['clientes/add'] = 'customers/add';
 $route['clientes/edit/(:num)'] = 'customers/edit/$1';
 $route['clientes/delete/(:num)'] = 'customers/delete/$1';
 $route['clientes/vehiculos/delete/(:num)'] = 'customers/deleteVehicle/$1';
+$route['clientes/doc/(:num)'] = 'customers/showDoc/$1';
 //rutas para paytypes
 $route['tipos-de-pago'] = 'paytypes';
 $route['tipos-de-pago/add'] = 'paytypes/add';

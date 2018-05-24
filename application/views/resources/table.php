@@ -129,8 +129,10 @@
 
 						<?php if( $image ): ?>
 
-							<a href="#" class="btn btn-brand m-btn m-btn--icon m-btn--icon-only">
+							<a href="#" id="<?= $id ?>" data-url="<?= $modal ?>" class="btn btn-brand m-btn m-btn--icon m-btn--icon-only modal-doc" data-toggle="modal" data-target="#appModal">
+
 								<i class="fa fa-camera"></i>
+
 							</a>
 
 						<?php endif ?>

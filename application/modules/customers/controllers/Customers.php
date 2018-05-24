@@ -373,6 +373,56 @@ class Customers  extends MX_Controller
 			show_404();
 		}
 	}
+	//método que devuelve tra una consulta desde ajax la tabla con 
+	//los doc que están vinculados al vehículo
+	public function getDocList()
+	{
+		//si es un request ajax, en caso contrario 404
+		if ( $this->input->is_ajax_request() ) {
+		   	//almacenamos el id del vehículo
+		   	$data['id'] = $this->input->post('id');
+		   	$data['getResult'] = $this->doctrine->em->getRepository("Entities\\Attachments")->findBy(["tableAttachment" => "VEHICLES","rowId" => $data['id']]);
+			echo $this->load->view("partials/doc_table",$data,true);
 
+		}else{
+
+			show_404();
+		}
+	}
+	//muestra el archivo seleccionado
+	public function showDoc($id = 0)
+	{
+		if( $id > 0 ) {
+
+			//obtenemos el nombre del archivo
+	        $doc = $this->doctrine->em->find("Entities\\Attachments", $id);
+	        //mostramos el archivo al usuario
+	        echo '<img src="'.base_url('assets/app/media/img/docs/'.$doc->getAttached()).'">';
+
+		}else{
+
+			show_404();
+		}
+	}
+	//método para borrar el archivo seleccionado
+	public function deleteDoc($id = 0)
+	{
+		if( $id > 0 ) {
+
+			//obtenemos el nombre del archivo
+	        $doc = $this->doctrine->em->find("Entities\\Attachments", $id);
+	        //obtenemos el objeto vehículo
+	        $vehicle = $this->doctrine->em->find("Entities\\Vehicles", $doc->getRowid());
+	        //eliminamos el item
+	        $this->doctrine->em->remove($doc);
+	        $this->doctrine->em->flush();
+	        //redireccionamos
+	        redirect(site_url(strtolower($this->nameModule)).'/edit/'.$vehicle->getCustomer()->getId());
+
+		}else{
+
+			show_404();
+		}
+	}
 
 }

@@ -30989,3 +30989,9 @@ body.m-content--skin-light2 {
       margin: 0 auto; } }
 
 
+.custom-file-control::after {
+  content: "Selecciona un archivo...";
+}
+.custom-file-control::before {
+  content: "Buscar";
+}

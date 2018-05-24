@@ -43,6 +43,25 @@ var AppActions = function() {
             $('.modal-dialog').addClass('modal-lg');
 
         });
+        //evento qe muestra y dibuja un modal con los documentos relacionados a la tabla principal
+        //este se alimenta de ATTACHMENTS table
+        $("body").on("click",".modal-doc", function(){
+            //id relación
+            var id = $(this).attr('id');
+            //configuramos los datos para la función ajax
+            var type = 'POST';
+            //url para llamar al metodo que devuelve el contenido del modal
+            var url = $(this).data('url')+'getDocList';
+            var data = {id:id};
+            //lanzamos la consulta y almacenamos el return
+            var returndata = ActionAjax(type,url,data,null,null,true,false);
+            //dibujamos en el modal-body el contenidom, en este caso seran formualrios
+            $('#appModal .modal-body').html( returndata );
+            //y el título del modal
+            $('#appModal .modal-title').html( 'Documentos');
+            //add estilo para agrandar el modal con el style modal-lg
+            $('.modal-dialog').addClass('modal-lg');
+        });
 
     }
 
