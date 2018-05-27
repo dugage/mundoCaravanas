@@ -282,7 +282,26 @@ class Customers  extends MX_Controller
 	//método para añadir veículo, donde el id hace referencia al id de customer 
 	//en la tabla customer
 	public function setVehicle($id = 0) {
-		
+	/*
+		$img = 'image';
+		$config = array (
+			'upload_path' => './uploads/',
+			'allowed_types' => 'png|jpeg|jpg',
+		);
+
+		$this->load->library('upload', $config);
+
+		if ( ! $this->upload->do_upload($img))
+		{
+			$error = array('error' => $this->upload->display_errors());
+			var_dump($error);
+		}
+		else
+		{
+			$data =  $this->upload->data();
+			echo $data['full_path'];
+		}
+	*/
 		if( $id > 0 ) {
 			//instaciamos la entidad Vehicles
 			$vehicle = new Entities\Vehicles;
@@ -317,8 +336,7 @@ class Customers  extends MX_Controller
 		}else{
 
 			show_404();
-		}
-		
+		}		
 	}
 
 
