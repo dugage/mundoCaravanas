@@ -82,10 +82,6 @@
 	</thead>
 	
 	<tbody>
-	<pre>
-		
-
-	</pre>
 	
 	<?php if( $getResult ): ?>
 
