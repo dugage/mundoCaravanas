@@ -30995,3 +30995,15 @@ body.m-content--skin-light2 {
 .custom-file-control::before {
   content: "Buscar";
 }
+.parking-map{
+  padding: 20px;
+}
+.parking-map .parking{
+  padding: 10px;
+  border: 1px solid #eee;
+  background: #fbfbfb;
+  font-weight: 500;
+  height: 200px;
+  text-align:center;
+  font-size: 1.5em;
+}

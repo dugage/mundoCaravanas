@@ -6,7 +6,7 @@ namespace Entities;
  * Parking
  *
  * @Table(name="PARKING")
- * @Entity
+ * @Entity(repositoryClass="Repositories\ParkingRepositorio")
  */
 class Parking
 {
@@ -18,6 +18,13 @@ class Parking
      * @GeneratedValue(strategy="IDENTITY")
      */
     private $id;
+
+    /**
+     * @var integer
+     *
+     * @Column(name="vehicle_id", type="integer", nullable=true)
+     */
+    private $vehicleId;
 
     /**
      * @var integer
@@ -54,6 +61,14 @@ class Parking
      */
     private $state;
 
+    public function __construct()
+    {
+        $this->dischargeDate = new \DateTime("now");
+        $this->dischargeDateCode = date("Y-m-d");
+        $this->upDate = new \DateTime("now");
+        $this->vehicleId = 0;
+    }
+
 
     /**
      * Get id
@@ -63,6 +78,30 @@ class Parking
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set vehicleId
+     *
+     * @param integer $vehicleId
+     *
+     * @return Parking
+     */
+    public function setVehicleid($vehicleId)
+    {
+        $this->vehicleId = $vehicleId;
+
+        return $this;
+    }
+
+    /**
+     * Get vehicleId
+     *
+     * @return integer
+     */
+    public function getVehicleid()
+    {
+        return $this->vehicleId;
     }
 
     /**

@@ -64,10 +64,10 @@ class Parking extends \Entities\Parking implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', '' . "\0" . 'Entities\\Parking' . "\0" . 'id', '' . "\0" . 'Entities\\Parking' . "\0" . 'number', '' . "\0" . 'Entities\\Parking' . "\0" . 'dischargeDate', '' . "\0" . 'Entities\\Parking' . "\0" . 'dischargeDateCode', '' . "\0" . 'Entities\\Parking' . "\0" . 'upDate', '' . "\0" . 'Entities\\Parking' . "\0" . 'state'];
+            return ['__isInitialized__', '' . "\0" . 'Entities\\Parking' . "\0" . 'id', '' . "\0" . 'Entities\\Parking' . "\0" . 'vehicleId', '' . "\0" . 'Entities\\Parking' . "\0" . 'number', '' . "\0" . 'Entities\\Parking' . "\0" . 'dischargeDate', '' . "\0" . 'Entities\\Parking' . "\0" . 'dischargeDateCode', '' . "\0" . 'Entities\\Parking' . "\0" . 'upDate', '' . "\0" . 'Entities\\Parking' . "\0" . 'state'];
         }
 
-        return ['__isInitialized__', '' . "\0" . 'Entities\\Parking' . "\0" . 'id', '' . "\0" . 'Entities\\Parking' . "\0" . 'number', '' . "\0" . 'Entities\\Parking' . "\0" . 'dischargeDate', '' . "\0" . 'Entities\\Parking' . "\0" . 'dischargeDateCode', '' . "\0" . 'Entities\\Parking' . "\0" . 'upDate', '' . "\0" . 'Entities\\Parking' . "\0" . 'state'];
+        return ['__isInitialized__', '' . "\0" . 'Entities\\Parking' . "\0" . 'id', '' . "\0" . 'Entities\\Parking' . "\0" . 'vehicleId', '' . "\0" . 'Entities\\Parking' . "\0" . 'number', '' . "\0" . 'Entities\\Parking' . "\0" . 'dischargeDate', '' . "\0" . 'Entities\\Parking' . "\0" . 'dischargeDateCode', '' . "\0" . 'Entities\\Parking' . "\0" . 'upDate', '' . "\0" . 'Entities\\Parking' . "\0" . 'state'];
     }
 
     /**
@@ -186,6 +186,28 @@ class Parking extends \Entities\Parking implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getId', []);
 
         return parent::getId();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setVehicleid($vehicleId)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setVehicleid', [$vehicleId]);
+
+        return parent::setVehicleid($vehicleId);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getVehicleid()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getVehicleid', []);
+
+        return parent::getVehicleid();
     }
 
     /**
