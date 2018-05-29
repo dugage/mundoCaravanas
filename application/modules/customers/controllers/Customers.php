@@ -282,26 +282,6 @@ class Customers  extends MX_Controller
 	//método para añadir veículo, donde el id hace referencia al id de customer 
 	//en la tabla customer
 	public function setVehicle($id = 0) {
-	/*
-		$img = 'image';
-		$config = array (
-			'upload_path' => './uploads/',
-			'allowed_types' => 'png|jpeg|jpg',
-		);
-
-		$this->load->library('upload', $config);
-
-		if ( ! $this->upload->do_upload($img))
-		{
-			$error = array('error' => $this->upload->display_errors());
-			var_dump($error);
-		}
-		else
-		{
-			$data =  $this->upload->data();
-			echo $data['full_path'];
-		}
-	*/
 		if( $id > 0 ) {
 			//instaciamos la entidad Vehicles
 			$vehicle = new Entities\Vehicles;
@@ -449,6 +429,51 @@ class Customers  extends MX_Controller
 			show_404();
 		}
 	}
+
+	//método para agregar una archivo
+	public function addDoc($id = 0)
+	{
+		if ($id > 0)
+		{
+			//obtenemos el nombre del input file.
+			$imgDoc = array_shift(array_keys($_FILES));
+			//creamos las reglas para aceptar el archivo
+			$config = array (
+				'upload_path' => './assets/app/media/img/docs/',
+				'allowed_types' => 'png|jpeg|jpg',
+			);
+			//cargamos la libreria para subir archivos
+			$this->load->library('upload', $config);
+			//comprobamos si se realizó correctamente
+			if (!$this->upload->do_upload($imgDoc))
+			{
+				$error = array('error' => $this->upload->display_errors());
+				var_dump($error);
+			}
+			else
+			{
+				//obtenemos los datos del archivo subido
+				$data =  $this->upload->data();
+				//añadimos el archivo a la DB
+				$doc = new Entities\Attachments;
+				$doc->setName($this->input->post('name'));
+				$doc->setAttached($data['file_name']);
+				$doc->setTableAttachment('VEHICLES');
+				$doc->setRowId($id);
+				//obtenemos el objeto del vehiculo
+				$vehicle = $this->doctrine->em->find("Entities\\Vehicles", $id);
+				$this->doctrine->em->persist($doc);
+				$this->doctrine->em->flush();
+			}
+			//redireccionamos
+			redirect(site_url(strtolower($this->nameModule)).'/edit/'.$vehicle->getCustomer()->getId());
+			
+
+		}else{
+				show_404();
+		}
+	}
+
 	//método para borrar el archivo seleccionado
 	public function deleteDoc($id = 0)
 	{
@@ -461,7 +486,7 @@ class Customers  extends MX_Controller
 	        //eliminamos el item
 	        $this->doctrine->em->remove($doc);
 	        $this->doctrine->em->flush();
-	        //redireccionamos
+			//redireccionamos
 	        redirect(site_url(strtolower($this->nameModule)).'/edit/'.$vehicle->getCustomer()->getId());
 
 		}else{

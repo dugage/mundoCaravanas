@@ -1,4 +1,4 @@
-<form action="<?= site_url("customers/setVehicle/".$id) ?>" method="post" enctype="multipart/form-data" class="m-form">
+<form action="<?= site_url("customers/setVehicle/".$id) ?>" method="post" class="m-form">
 
 		<?= validation_errors(); ?>
 
@@ -100,16 +100,6 @@
 			
 			
 		</select>
-
-	</div>
-
-	<div class="form-group m-form__group">
-
-		<label for="image">
-			Imagen: <span style="color:red;">*</span>
-		</label>
-		<br>
-		<input name="image" value="" type="file"/>>
 
 	</div>
 

@@ -1,4 +1,4 @@
-<form action="doc_table_submit" method="get" accept-charset="utf-8">
+<form action="<?= site_url("customers/addDoc/".$id) ?>" method="post" accept-charset="utf-8" enctype="multipart/form-data">
   
   <div class="alert m-alert m-alert--default" role="alert">
     
@@ -6,14 +6,14 @@
 
       <div class="col-md-5">
         
-        <input class="form-control m-input" placeholder="Nombre del docuemtno" value="" id="example-text-input" type="text">
+        <input name="name" class="form-control m-input" placeholder="Nombre del documento" value="" id="example-text-input" type="text">
 
       </div>
 
       <div class="col-md-5">
         
         <label class="custom-file">
-                  <input id="file2" class="custom-file-input" type="file">
+                  <input name="attached" id="file2" class="custom-file-input" type="file">
                   <span class="custom-file-control"></span>
                 </label>
 
