@@ -74,12 +74,9 @@ $route['marcas/delete/(:num)'] = 'vehiclebrands/delete/$1';
 $route['tipos'] = 'vehicletypes';
 $route['tipos/add'] = 'vehicletypes/add';
 $route['tipos/edit/(:num)'] = 'vehicletypes/edit/$1';
-<<<<<<< HEAD
 $route['tipos/delete/(:num)'] = 'vehicletypes/delete/$1';
-=======
 //rutas Administración Parking
 $route['administrar-parking'] = 'parkingadmin';
 $route['administrar-parking/add'] = 'parkingadmin/add';
 $route['administrar-parking/edit/(:num)'] = 'parkingadmin/edit/$1';
 $route['administrar-parking/delete/(:num)'] = 'parkingadmin/delete/$1';
->>>>>>> 0c85923b296163f1298486255cfe3b821842ea06
