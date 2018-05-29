@@ -7,10 +7,10 @@
 		<div class="form-group m-form__group">
 
 			<label for="example_input_full_name">
-				Tipo:
+				Plaza nº:
 			</label>
 
-			<input name="name" value="<?= (isset( $id )) ? $getResult->getName() : set_value('username') ?>" class="form-control m-input" placeholder="Introduce el Tpo de vehículo ej. Urban" type="text">
+			<input name="number" value="<?= (isset( $id )) ? $getResult->getNumber() : set_value('number') ?>" class="form-control m-input" placeholder="Introduce un número para esta plaza" type="text">
 
 		</div>
 
@@ -30,11 +30,11 @@
 
 		<div class="m-form__actions m-form__actions">
 
-			<button name="submit-form" type="submit" class="btn btn-primary"><i class="la la-floppy-o"></i> Guardar</button>
+			<button name="submit-form" type="submit" class="btn btn-primary"><i class="la la-floppy-o"></i> Gurdar</button>
 			
 			<?php if( isset( $id ) ): ?>
 
-				<a href="<?= site_url('tipos-de-pago') ?>" class="btn btn-secondary"><i class="la la-angle-left"></i> Volver</a>
+				<a href="<?= site_url('tipos') ?>" class="btn btn-secondary"><i class="la la-angle-left"></i> Volver</a>
 
 			<?php endif ?>
 

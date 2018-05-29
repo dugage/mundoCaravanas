@@ -1,36 +1,35 @@
 <?php
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Paytypes  extends MX_Controller
+class Parkingadmin  extends MX_Controller
 {
 	private $nameClass = null;
 	private $class = null;
 	private $nameModule = null;
 	private $breadCrumbs = array();
 	private $tableTh = array();//configura la cabecera de las tablas
-	private $data = array();
+	private $data = array();//datos básicos que pasamos por repetición al layout
 
 	public function __construct()
 	{
 		parent::__construct();
 		$this->nameClass = get_class($this);
 		$this->class = 'm-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default';
-		$this->nameModule = "Tipos de pago";
-		$this->breadCrumbs = array('Tipos de pago');
+		$this->nameModule = "Administrar Parking";
+		$this->breadCrumbs = array('Administrar Parking');
 		/*
 			Este vector nos ayuda a dibujar la tabla con los resultados de la consutla de todos los item
 			para ellos es obligatortio el campo Id, además las claves que preceden al valor, tienen que
 			ser nombradas tal cual estan el los geter de las entidad correspondiente a la consulta, hay que
-			tener en cuenta que si esta tiene relaciones, tendremos que consultar los nombres de los geter
+			tener en cuenta que si esta tiene realiones, tendremos que consultar los nombres de los geter
 			en la tabla en cuestión.
 		*/
 		$this->tableTh = array(
 
 								'Id' => '#',
-								'Name' => 'Tipo',
+								'Number' => 'Plaza',
 								'DischargeDate' => 'Alta'
 							);
-
 		//datos básicos
 		$this->data = array(
 								
@@ -46,17 +45,11 @@ class Paytypes  extends MX_Controller
 
 	public function index()
 	{
-		//cargamos las migas de pan en forma de array, metemos tantos item como sean necesarios
-		//$this->breadCrumbs = array('caca','coco');
+		
 		//pasamos los datos básicos a la vista
-		$data['lang'] = "es";
-        $data['title'] = "Mundo Caravanas | Intranet";
-        $data['robots'] = "noindex, follow";
-        $data['typeLayout'] = "panel";
-        $data['content'] = $data['view'] = strtolower(__FUNCTION__."_".$this->nameClass);
-        $data['class'] = $this->class;
-        //nombre del módulo principal, es que nombre que mostramos al usuario
-        $data['nameModule'] = $this->nameModule;
+		$data = $this->data;
+        $data['content'] = strtolower(__FUNCTION__."_".$this->nameClass);
+        $data['view'] = strtolower(__FUNCTION__."_".$this->nameClass);
         //migas de pan
         $data['breadCrumbs'] = $this->breadCrumbs;
         //id único de la pagina, todo en mayúsculas
@@ -64,14 +57,13 @@ class Paytypes  extends MX_Controller
         //pasamos la configuración de la cabecera de la tabla
         $data['tableTh'] = $this->tableTh;
         //Obtenemos dotos los datos de la tabla
-        $data['getResult'] = $this->doctrine->em->getRepository("Entities\\Paytypes")->findAll();
+        $data['getResult'] = $this->doctrine->em->getRepository("Entities\\Parking")->findAll();
         //cargamos la vista, en este caso es la del panel
         $this->load->view('layout',$data);
 	}
 
 	public function add()
 	{
-
 		//añadirmos a las migas de pan la sección donde nos encontramos actualmente
 		array_push($this->breadCrumbs, "Nueva");
 		//pasamos los datos básicos a la vista
@@ -83,25 +75,23 @@ class Paytypes  extends MX_Controller
         $data['breadCrumbs'] = $this->breadCrumbs;
         //comprobamos formulario submit
         if( isset($_POST['submit-form']) ) {
-        	//validamos los datos // EDITADO
-            $this->form_validation->set_rules('name', 'Tipo de Pago', 'required');
+        	//validamos los datos
+            $this->form_validation->set_rules('number', 'Plaza nº', 'required');
             $this->form_validation->set_error_delimiters('<div class="alert alert-danger" role="alert">', '</div>');
             //si el formulario es correcto
             if ($this->form_validation->run())
             {
-            	//llamamos al método que controla la acción de add y edit
+            	//llamamos al nmétodo que controla la acción de add y edit
             	$this->_setAndGetData();
 
             }
         }
         //cargamos la vista, en este caso es la del panel
         $this->load->view('layout',$data);
-
 	}
 
 	public function edit($id = 0)
 	{
-
 		//añadirmos a las migas de pan la sección donde nos encontramos actualmente
 		array_push($this->breadCrumbs, "Editar");
 		//pasamos los datos básicos a la vista
@@ -114,17 +104,18 @@ class Paytypes  extends MX_Controller
         //pasamos el id a la vista
         $data['id'] = $id;
         //obtenemos y pasamos a la vista los datos
-        $data['getResult'] = $this->doctrine->em->find("Entities\\Paytypes", $id);
+        $data['getResult'] = $this->doctrine->em->find("Entities\\Parking", $id);
         //comprobamos formulario submit
         if( isset($_POST['submit-form']) ) {
-        	//validamos los datos // EDITADO
-            $this->form_validation->set_rules('name', 'Nombre', 'required');
+        	//validamos los datos
+            $this->form_validation->set_rules('number', 'Plaza nº', 'required');
             $this->form_validation->set_error_delimiters('<div class="alert alert-danger" role="alert">', '</div>');
             //si el formulario es correcto
             if ($this->form_validation->run())
             {
             	//llamamos al nmétodo que controla la acción de add y edit
             	$this->_setAndGetData($id);
+
             }
         }
         //cargamos la vista, en este caso es la del panel
@@ -134,23 +125,17 @@ class Paytypes  extends MX_Controller
 	public function delete($id = 0)
 	{
 		if( $id > 0 ){
+
 			//obtenemos el dato mediante id
-			$getRow = $this->doctrine->em->find("Entities\\Paytypes", $id);
-
-			/*Hay que buscar en la base de datos si el nombre del tipo de
-			pago de la tabla customers es igual al nombre del tipo de pago
-			de la tabla paytypes. Si no hay clientes con ese tipo de pago,
-			se eliminará normalmente, de lo contrario todos los clientes
-			que tengan esa forma de pago pasarán a tener '0' como forma de
-			pago*/
-
+	        $getRow = $this->doctrine->em->find("Entities\\Parking", $id);
 	        //eliminamos el item
 	        $this->doctrine->em->remove($getRow);
 	        $this->doctrine->em->flush();
 	        //redireccionamos
-	        redirect(strtolower(str_replace(' ','-',$this->nameModule)));
+	        redirect(site_url(strtolower(str_replace(' ','-',$this->nameModule))));
 
 		}else{
+
 			show_404();
 		}
 	}
@@ -162,19 +147,19 @@ class Paytypes  extends MX_Controller
 		//entendems que vamos a realizar una edición
 		if( $id == 0 ) {
 			//instanciamos la entidad
-			$item = new Entities\Paytypes;
-		}else {
-			//realizamos una consulta pasando el id para obtener el item que vamos a editar
-			$item = $this->doctrine->em->find("Entities\\Paytypes", $id);	
-		}
+			$item = new Entities\Parking;
 
+		}else {
+
+			//realizamos una consulta pasando el id para obtener el item que vamos a editar
+			$item = $this->doctrine->em->find("Entities\\Parking", $id);
+		}
 		//seteamos los datos
-		$item->setName($this->input->post('name'));
+		$item->setNumber($this->input->post('number'));
+		$item->setState(1);
 		//si no esta marcado estado
 		if(!isset( $_POST['state']))
 			$item->setState(0);
-		else
-			$item->setState(1);
 		//si id es mayor de 0, es una add y por tanto hacemos persist
 		if( $id == 0 )
 			$this->doctrine->em->persist($item);
@@ -182,12 +167,15 @@ class Paytypes  extends MX_Controller
         $this->doctrine->em->flush();
         //finalmente realizamos la redirección al edit
         if( $id == 0 ) {
-			redirect(site_url(strtolower(str_replace(' ','-',$this->nameModule)).'/edit/'.$item->getId()));
+
+        	redirect(site_url(strtolower(str_replace(' ','-',$this->nameModule)).'/edit/'.$item->getId()));
 
         }else{
-			redirect(site_url(strtolower(str_replace(' ','-',$this->nameModule)).'/edit/'.$id));
-		}
-		
+
+        	redirect(site_url(strtolower(str_replace(' ','-',$this->nameModule)).'/edit/'.$id));
+        }
 	}
 
 }
+
+
