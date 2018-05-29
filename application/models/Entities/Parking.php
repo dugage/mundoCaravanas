@@ -64,7 +64,7 @@ class Parking
     public function __construct()
     {
         $this->dischargeDate = new \DateTime("now");
-        $this->dischargeDateCode = date("Y-m-d");
+        $this->dischargeDateCode = date("Ymd");
         $this->upDate = new \DateTime("now");
         $this->vehicleId = 0;
     }
