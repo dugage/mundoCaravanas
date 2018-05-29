@@ -16,7 +16,7 @@ class Customers  extends MX_Controller
 		$this->nameClass = get_class($this);
 		$this->class = 'm-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default';
 		$this->nameModule = "Clientes";
-		$this->breadCrumbs = array('Clietnes');
+		$this->breadCrumbs = array('Clientes');
 		/*
 			Este vector nos ayuda a dibujar la tabla con los resultados de la consutla de todos los item
 			para ellos es obligatortio el campo Id, además las claves que preceden al valor, tienen que
@@ -48,7 +48,7 @@ class Customers  extends MX_Controller
 
 	public function index()
 	{
-		//cargamos las migas de pan en form de array, metemos tantos intem como sean necesarios
+		//cargamos las migas de pan en form de array, metemos tantos items como sean necesarios
 		//$this->breadCrumbs = array('caca','coco');
 		//pasamos los datos básicos a la vista
 		$data['lang'] = "es";
@@ -57,15 +57,15 @@ class Customers  extends MX_Controller
         $data['typeLayout'] = "panel";
         $data['content'] = $data['view'] = strtolower(__FUNCTION__."_".$this->nameClass);
         $data['class'] = $this->class;
-        //nombre del módulo principal, es que nombre que mostramos al usuario
+        //nombre del módulo principal, es el nombre que mostramos al usuario
         $data['nameModule'] = $this->nameModule;
         //migas de pan
         $data['breadCrumbs'] = $this->breadCrumbs;
-        //id único de la pagina, todo en mayúsculas
+        //id único de la pagina, todo en minúsculas
         $data['reference'] = strtolower($this->nameClass);
         //pasamos la configuración de la cabecera de la tabla
         $data['tableTh'] = $this->tableTh;
-        //Obtenemos dotos los datos de la tabla
+        //Obtenemos todos los datos de la tabla
         $data['getResult'] = $this->doctrine->em->getRepository("Entities\\Customers")->findAll();
         //cargamos la vista, en este caso es la del panel
         $this->load->view('layout',$data);
@@ -73,7 +73,7 @@ class Customers  extends MX_Controller
 
 	public function add()
 	{
-		//añadirmos a las migas de pan la sección donde nos encontramos actualmente
+		//añadimos a las migas de pan la sección donde nos encontramos actualmente
 		array_push($this->breadCrumbs, "Nuevo cliente");
 		//pasamos los datos básicos a la vista
 		$data = $this->data;
@@ -85,32 +85,14 @@ class Customers  extends MX_Controller
         //obtenemos los formatos de pago
         $data['getPayTypes'] = $this->doctrine->em->getRepository("Entities\\Paytypes")->findAll();
         //comprobamos formulario submit
-        if( isset($_POST['submit-form']) ) {
-        	//validamos los datos
-            $this->form_validation->set_rules('name', 'Nombre', 'required');
-            $this->form_validation->set_rules('surname', 'Apellidos', 'required');
-            $this->form_validation->set_rules('nif', 'NIF', 'required|exact_length[9]');
-            $this->form_validation->set_rules('zip', 'CP', 'required|exact_length[5]');
-            $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
-            $this->form_validation->set_rules('address', 'Dirección', 'required');
-            $this->form_validation->set_rules('paytype_id', 'Forma de pago', 'required');
-            $this->form_validation->set_rules('phone_primary', 'Teléfono', 'required|exact_length[9]');
-            $this->form_validation->set_error_delimiters('<div class="alert alert-danger" role="alert">', '</div>');
-            //si el formulario es correcto
-            if ($this->form_validation->run())
-            {
-            	//llamamos al nmétodo que controla la acción de add y edit
-            	$this->_setAndGetData();
-
-            }
-        }
+        $this->validationSubmit();
         //cargamos la vista, en este caso es la del panel
         $this->load->view('layout',$data);
 	}
 
 	public function edit($id = 0)
 	{
-		//añadirmos a las migas de pan la sección donde nos encontramos actualmente
+		//añadimos a las migas de pan la sección donde nos encontramos actualmente
 		array_push($this->breadCrumbs, "Editar cliente");
 		//pasamos los datos básicos a la vista
 		$data = $this->data;
@@ -118,7 +100,7 @@ class Customers  extends MX_Controller
         $data['content'] = strtolower(__FUNCTION__."_".$this->nameClass);
         $data['view'] = strtolower(__FUNCTION__."_".$this->nameClass);
         //migas de pan
-        $data['breadCrumbs'] = $this->breadCrumbs;
+		$data['breadCrumbs'] = $this->breadCrumbs;
         //obtenemos y pasamos a la vista los datos
         $data['getResult'] = $this->doctrine->em->find("Entities\\Customers", $id);
         //obtenemos los formatos de pago
@@ -128,7 +110,14 @@ class Customers  extends MX_Controller
         //colección de tablas de submódulos
         $data['vehicles'] = $this->_secundaryTable($id);
         //comprobamos formulario submit
-        if( isset($_POST['submit-form']) ) {
+		$this->validationSubmit();
+        //cargamos la vista, en este caso es la del panel
+		$this->load->view('layout',$data);
+		
+	}
+
+	private function validationSubmit(){
+		if( isset($_POST['submit-form']) ) {
         	//validamos los datos
             $this->form_validation->set_rules('name', 'Nombre', 'required');
             $this->form_validation->set_rules('surname', 'Apellidos', 'required');
@@ -137,7 +126,7 @@ class Customers  extends MX_Controller
             $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
             $this->form_validation->set_rules('address', 'Dirección', 'required');
             $this->form_validation->set_rules('paytype_id', 'Forma de pago', 'required');
-            $this->form_validation->set_rules('phone_primary', 'Teléfono', 'required|exact_length[9]');
+			$this->form_validation->set_rules('phone_primary', 'Teléfono', 'required|exact_length[9]');
             $this->form_validation->set_error_delimiters('<div class="alert alert-danger" role="alert">', '</div>');
             //si el formulario es correcto
             if ($this->form_validation->run())
@@ -147,8 +136,6 @@ class Customers  extends MX_Controller
 
             }
         }
-        //cargamos la vista, en este caso es la del panel
-        $this->load->view('layout',$data);
 	}
 
 	public function delete($id = 0)
@@ -191,7 +178,7 @@ class Customers  extends MX_Controller
 		$item->setSurname($this->input->post('surname'));
 		$item->setNif($this->input->post('nif'));
 		$item->setPhonePrimary($this->input->post('phone_primary'));
-		$item->setPhoneSecond($this->input->post('phone_secondary'));
+		$item->setPhoneSecond($this->input->post('phone_second'));
 		$item->setEmail($this->input->post('email'));
 		$item->setAddress($this->input->post('address'));
 		$item->setZip($this->input->post('zip'));
@@ -215,7 +202,7 @@ class Customers  extends MX_Controller
         	redirect(site_url(strtolower($this->nameModule).'/edit/'.$id));
         }
 	}
-	//este metodo devuelve la talba del submódulo vehicles
+	//este metodo devuelve la tabla del submódulo vehicles
 	private function _secundaryTable($id)
 	{
 
@@ -254,7 +241,7 @@ class Customers  extends MX_Controller
 	{
 		//si es un request ajax, en caso contrario 404
 		if ( $this->input->is_ajax_request() ) {
-		   	//almacenamos el id del cliente para reliacionarlo con el vehículo
+		   	//almacenamos el id del cliente para relacionarlo con el vehículo
 		   	$data['id'] = $this->input->post('id');
 		   	$formType = $this->input->post('form_type');
 		   	//Obtenemos los tipos de vehículos
@@ -264,7 +251,7 @@ class Customers  extends MX_Controller
         	//Obtenemos todos los parking abiertos
         	$data['getParking'] = $this->doctrine->em->getRepository("Entities\\Parking")->findBy(["state" => "0"]);
         	
-        	//comprobamos si el tipo de formulario es igual a edit, si es el caso pàsamos los datos del vehículo que vamos
+        	//comprobamos si el tipo de formulario es igual a edit, si es el caso pasamos los datos del vehículo que vamos
         	//a editar.
         	if( $formType == "edit" )
 
@@ -418,7 +405,7 @@ class Customers  extends MX_Controller
 			show_404();
 		}
 	}
-	//método que devuelve tra una consulta desde ajax la tabla con 
+	//método que devuelve una consulta desde ajax la tabla con 
 	//los doc que están vinculados al vehículo
 	public function getDocList()
 	{
