@@ -30,11 +30,11 @@
 
 		<div class="m-form__actions m-form__actions">
 
-			<button name="submit-form" type="submit" class="btn btn-primary"><i class="la la-floppy-o"></i> Gurdar</button>
+			<button name="submit-form" type="submit" class="btn btn-primary"><i class="la la-floppy-o"></i> Guardar</button>
 			
 			<?php if( isset( $id ) ): ?>
 
-				<a href="<?= site_url('tipos') ?>" class="btn btn-secondary"><i class="la la-angle-left"></i> Volver</a>
+				<a href="<?= site_url('tipos-de-pago') ?>" class="btn btn-secondary"><i class="la la-angle-left"></i> Volver</a>
 
 			<?php endif ?>
 

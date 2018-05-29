@@ -70,7 +70,8 @@ $route['marcas'] = 'vehiclebrands';
 $route['marcas/add'] = 'vehiclebrands/add';
 $route['marcas/edit/(:num)'] = 'vehiclebrands/edit/$1';
 $route['marcas/delete/(:num)'] = 'vehiclebrands/delete/$1';
-//rutas para vehiclesbrands
+//rutas para vehiclestypes
 $route['tipos'] = 'vehicletypes';
 $route['tipos/add'] = 'vehicletypes/add';
 $route['tipos/edit/(:num)'] = 'vehicletypes/edit/$1';
+$route['tipos/delete/(:num)'] = 'vehicletypes/delete/$1';

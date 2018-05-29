@@ -21,7 +21,7 @@ class Paytypes  extends MX_Controller
 			Este vector nos ayuda a dibujar la tabla con los resultados de la consutla de todos los item
 			para ellos es obligatortio el campo Id, además las claves que preceden al valor, tienen que
 			ser nombradas tal cual estan el los geter de las entidad correspondiente a la consulta, hay que
-			tener en cuenta que si esta tiene realiones, tendremos que consultar los nombres de los geter
+			tener en cuenta que si esta tiene relaciones, tendremos que consultar los nombres de los geter
 			en la tabla en cuestión.
 		*/
 		$this->tableTh = array(
@@ -46,7 +46,7 @@ class Paytypes  extends MX_Controller
 
 	public function index()
 	{
-		//cargamos las migas de pan en form de array, metemos tantos intem como sean necesarios
+		//cargamos las migas de pan en forma de array, metemos tantos item como sean necesarios
 		//$this->breadCrumbs = array('caca','coco');
 		//pasamos los datos básicos a la vista
 		$data['lang'] = "es";
@@ -89,7 +89,7 @@ class Paytypes  extends MX_Controller
             //si el formulario es correcto
             if ($this->form_validation->run())
             {
-            	//llamamos al nmétodo que controla la acción de add y edit
+            	//llamamos al método que controla la acción de add y edit
             	$this->_setAndGetData();
 
             }
@@ -125,7 +125,6 @@ class Paytypes  extends MX_Controller
             {
             	//llamamos al nmétodo que controla la acción de add y edit
             	$this->_setAndGetData($id);
-
             }
         }
         //cargamos la vista, en este caso es la del panel
@@ -135,9 +134,16 @@ class Paytypes  extends MX_Controller
 	public function delete($id = 0)
 	{
 		if( $id > 0 ){
-
 			//obtenemos el dato mediante id
-	        $getRow = $this->doctrine->em->find("Entities\\Paytypes", $id);
+			$getRow = $this->doctrine->em->find("Entities\\Paytypes", $id);
+
+			/*Hay que buscar en la base de datos si el nombre del tipo de
+			pago de la tabla customers es igual al nombre del tipo de pago
+			de la tabla paytypes. Si no hay clientes con ese tipo de pago,
+			se eliminará normalmente, de lo contrario todos los clientes
+			que tengan esa forma de pago pasarán a tener '0' como forma de
+			pago*/
+
 	        //eliminamos el item
 	        $this->doctrine->em->remove($getRow);
 	        $this->doctrine->em->flush();
@@ -145,7 +151,6 @@ class Paytypes  extends MX_Controller
 	        redirect(strtolower(str_replace(' ','-',$this->nameModule)));
 
 		}else{
-
 			show_404();
 		}
 	}
@@ -168,6 +173,8 @@ class Paytypes  extends MX_Controller
 		//si no esta marcado estado
 		if(!isset( $_POST['state']))
 			$item->setState(0);
+		else
+			$item->setState(1);
 		//si id es mayor de 0, es una add y por tanto hacemos persist
 		if( $id == 0 )
 			$this->doctrine->em->persist($item);
@@ -175,13 +182,12 @@ class Paytypes  extends MX_Controller
         $this->doctrine->em->flush();
         //finalmente realizamos la redirección al edit
         if( $id == 0 ) {
-
-        	redirect(site_url(strtolower(str_replace(' ','-',$this->nameModule)).'/edit/'.$item->getId()));
+			redirect(site_url(strtolower(str_replace(' ','-',$this->nameModule)).'/edit/'.$item->getId()));
 
         }else{
-
-        	redirect(site_url(strtolower(str_replace(' ','-',$this->nameModule)).'/edit/'.$id));
-        }
+			redirect(site_url(strtolower(str_replace(' ','-',$this->nameModule)).'/edit/'.$id));
+		}
+		
 	}
 
 }
