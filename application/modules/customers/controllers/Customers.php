@@ -275,7 +275,6 @@ class Customers  extends MX_Controller
 
 			//buscamos el parking y cambiamos su estado a 1 para cerrar esa plaza.
 			$parking = $this->doctrine->em->find("Entities\\Parking", $this->input->post('parking'));
-			$parking->setState(1);
 
 			//obtenemos las id's
 			$customer = $this->doctrine->em->find("Entities\\Customers", $id);
@@ -292,10 +291,15 @@ class Customers  extends MX_Controller
 			$vehicle->setModel($this->input->post('model'));
 			$vehicle->setVin($this->input->post('vin'));
 
-			//guardamos tanto para vehicles como parking
+			//guardamos datos para vehiculos
 			$this->doctrine->em->persist($vehicle);
 			$this->doctrine->em->flush();
-			
+
+			//guardamos datos para parking
+			$vehicleId = $vehicle->getId();
+			$parking->setState(1);
+			$parking->setVehicleId($vehicleId);
+			$this->doctrine->em->flush();
 
 			//redireccionamos
 	        redirect(strtolower($this->nameModule.'/edit/'.$id));
@@ -322,6 +326,7 @@ class Customers  extends MX_Controller
 			if ($vehicle->getParking() != $parking_new) {
 				$parking_old = $this->doctrine->em->find("Entities\\Parking", $vehicle->getParking());
 				$parking_old->setState(0);
+				$parking_old->setVehicleId(0);
 			}
 
 			//obtenemos las id's
@@ -330,6 +335,7 @@ class Customers  extends MX_Controller
 
 			//cerramos el parking
 			$parking->setState(1);
+			$parking->setVehicleId($id);
 			$vehicletype = $this->doctrine->em->find("Entities\\VehicleTypes", $this->input->post('vehicle_types'));
 			$vehiclebrand = $this->doctrine->em->find("Entities\\VehicleBrands", $this->input->post('vehicle_brands'));
 
@@ -370,6 +376,7 @@ class Customers  extends MX_Controller
 	        //abrimos el parking
 	        $parking = $this->doctrine->em->find("Entities\\Parking", $getRow->getParking()->getId());
 			$parking->setState(0);
+			$parking->setVehicleId(0);
 
 	        //Guardamos la id del cliente para la redirección
 			$customerId = $getRow->getCustomer()->getId();
