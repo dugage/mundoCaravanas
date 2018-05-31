@@ -55,6 +55,13 @@ class Vehicles
     private $color;
 
     /**
+     * @var string
+     *
+     * @Column(name="pay_method", type="string", length=25, precision=0, scale=0, nullable=false, unique=false)
+     */
+    private $payMethod;
+
+    /**
      * @var \DateTime
      *
      * @Column(name="discharge_date", type="datetime", precision=0, scale=0, nullable=true, unique=false)
@@ -251,6 +258,30 @@ class Vehicles
     public function getColor()
     {
         return $this->color;
+    }
+
+    /**
+     * Set payMethod
+     *
+     * @param string $payMethod
+     *
+     * @return Vehicles
+     */
+    public function setPayMethod($payMethod)
+    {
+        $this->payMethod = $payMethod;
+
+        return $this;
+    }
+
+    /**
+     * Get payMethod
+     *
+     * @return string
+     */
+    public function getPayMethod()
+    {
+        return $this->payMethod;
     }
 
     /**

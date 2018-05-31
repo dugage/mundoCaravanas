@@ -2,137 +2,125 @@
 
 namespace Entities;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * Customers
  *
- * @Table(name="CUSTOMERS", indexes={@Index(name="cu_pa", columns={"paytype_id"})})
- * @Entity
+ * @ORM\Table(name="CUSTOMERS", indexes={@ORM\Index(name="cu_pa", columns={"paytype_id"})})
+ * @ORM\Entity
  */
 class Customers
 {
     /**
      * @var integer
      *
-     * @Column(name="id", type="integer", precision=0, scale=0, nullable=false, unique=false)
-     * @Id
-     * @GeneratedValue(strategy="IDENTITY")
+     * @ORM\Column(name="id", type="integer", precision=0, scale=0, nullable=false, unique=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
      * @var integer
      *
-     * @Column(name="province_id", type="integer", precision=0, scale=0, nullable=true, unique=false)
+     * @ORM\Column(name="province_id", type="integer", precision=0, scale=0, nullable=true, unique=false)
      */
     private $provinceId;
 
     /**
      * @var string
      *
-     * @Column(name="name", type="string", length=45, precision=0, scale=0, nullable=true, unique=false)
+     * @ORM\Column(name="name", type="string", length=45, precision=0, scale=0, nullable=true, unique=false)
      */
     private $name;
 
     /**
      * @var string
      *
-     * @Column(name="surname", type="string", length=45, precision=0, scale=0, nullable=true, unique=false)
+     * @ORM\Column(name="surname", type="string", length=45, precision=0, scale=0, nullable=true, unique=false)
      */
     private $surname;
 
     /**
      * @var string
      *
-     * @Column(name="nif", type="string", length=10, precision=0, scale=0, nullable=true, unique=false)
+     * @ORM\Column(name="nif", type="string", length=10, precision=0, scale=0, nullable=true, unique=false)
      */
     private $nif;
 
     /**
      * @var integer
      *
-     * @Column(name="phone_primary", type="integer", precision=0, scale=0, nullable=true, unique=false)
+     * @ORM\Column(name="phone_primary", type="integer", precision=0, scale=0, nullable=true, unique=false)
      */
     private $phonePrimary;
 
     /**
      * @var integer
      *
-     * @Column(name="phone_second", type="integer", precision=0, scale=0, nullable=true, unique=false)
+     * @ORM\Column(name="phone_second", type="integer", precision=0, scale=0, nullable=true, unique=false)
      */
     private $phoneSecond;
 
     /**
      * @var string
      *
-     * @Column(name="email", type="string", length=45, precision=0, scale=0, nullable=true, unique=false)
+     * @ORM\Column(name="email", type="string", length=45, precision=0, scale=0, nullable=true, unique=false)
      */
     private $email;
 
     /**
      * @var string
      *
-     * @Column(name="address", type="string", length=45, precision=0, scale=0, nullable=true, unique=false)
+     * @ORM\Column(name="address", type="string", length=45, precision=0, scale=0, nullable=true, unique=false)
      */
     private $address;
 
     /**
      * @var integer
      *
-     * @Column(name="zip", type="integer", precision=0, scale=0, nullable=true, unique=false)
+     * @ORM\Column(name="zip", type="integer", precision=0, scale=0, nullable=true, unique=false)
      */
     private $zip;
 
     /**
      * @var \DateTime
      *
-     * @Column(name="discharge_date", type="datetime", precision=0, scale=0, nullable=false, unique=false)
+     * @ORM\Column(name="discharge_date", type="datetime", precision=0, scale=0, nullable=false, unique=false)
      */
     private $dischargeDate;
 
     /**
      * @var string
      *
-     * @Column(name="discharge_date_code", type="string", length=8, precision=0, scale=0, nullable=true, unique=false)
+     * @ORM\Column(name="discharge_date_code", type="string", length=8, precision=0, scale=0, nullable=true, unique=false)
      */
     private $dischargeDateCode;
 
     /**
      * @var \DateTime
      *
-     * @Column(name="up_date", type="datetime", precision=0, scale=0, nullable=false, unique=false)
+     * @ORM\Column(name="up_date", type="datetime", precision=0, scale=0, nullable=false, unique=false)
      */
     private $upDate;
 
     /**
      * @var boolean
      *
-     * @Column(name="state", type="boolean", precision=0, scale=0, nullable=true, unique=false)
+     * @ORM\Column(name="state", type="boolean", precision=0, scale=0, nullable=true, unique=false)
      */
-    private $state = 1;
+    private $state;
 
     /**
-     * @var integer
+     * @var \Entities\Paytypes
      *
-     * @Column(name="entrance_register", type="integer", precision=0, scale=0, nullable=false, unique=false)
-     */
-    private $entranceRegister;
-
-    /**
-     * @var \Paytypes
-     *
-     * @ManyToOne(targetEntity="Paytypes")
-     * @JoinColumns({
-     *   @JoinColumn(name="paytype_id", referencedColumnName="id", nullable=true)
+     * @ORM\ManyToOne(targetEntity="Entities\Paytypes")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="paytype_id", referencedColumnName="id", nullable=true)
      * })
      */
     private $paytype;
-
-    public function __construct()
-    {
-        $this->dischargeDate = new \DateTime("now");
-        $this->dischargeDateCode = date("Y-m-d");
-        $this->upDate = new \DateTime("now");
-    }
 
 
     /**
@@ -458,37 +446,13 @@ class Customers
     }
 
     /**
-     * Set entranceRegister
-     *
-     * @param integer $entranceRegister
-     *
-     * @return Customers
-     */
-    public function setEntranceRegister($entranceRegister)
-    {
-        $this->entranceRegister = $entranceRegister;
-
-        return $this;
-    }
-
-    /**
-     * Get entranceRegister
-     *
-     * @return integer
-     */
-    public function getEntranceRegister()
-    {
-        return $this->entranceRegister;
-    }
-
-    /**
      * Set paytype
      *
-     * @param \Paytypes $paytype
+     * @param \Entities\Paytypes $paytype
      *
      * @return Customers
      */
-    public function setPaytype($paytype)
+    public function setPaytype(\Entities\Paytypes $paytype = null)
     {
         $this->paytype = $paytype;
 
@@ -498,7 +462,7 @@ class Customers
     /**
      * Get paytype
      *
-     * @return \Paytypes
+     * @return \Entities\Paytypes
      */
     public function getPaytype()
     {

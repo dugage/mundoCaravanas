@@ -77,6 +77,16 @@
 
 			</th>
 
+			<?php if( isset($adminPay) ): ?>
+
+				<th title="Field #<?= $count ?>">
+				
+					Pagos
+
+				</th>
+
+			<?php endif ?>
+
 		</tr>
 
 	</thead>
@@ -137,6 +147,7 @@
 
 						<?php endif ?>
 
+
 					<?php elseif( isset($nameModule) ): ?>
 						
 						<a href="<?= site_url(strtolower(str_replace(' ','-',$nameModule)).'/edit/'.$id) ?>" class="btn btn-warning m-btn m-btn--icon m-btn--icon-only">
@@ -149,9 +160,21 @@
 
 					<?php endif ?>
 
-					
-					
 				</td>
+
+				<?php if( isset($adminPay) ): ?>
+
+					<td>
+
+						<a href="#" id="<?= $id ?>" data-url="<?= $modal ?>" class="btn btn-info m-btn m-btn--icon m-btn--icon-only modal-admin-pay" data-toggle="modal" data-target="#appModal">
+
+							<i class="flaticon-file-1"></i>
+
+						</a>
+
+					</td>
+
+				<?php endif ?>
 
 			</tr>
 

@@ -105,6 +105,16 @@
 
 		<div class="form-group m-form__group">
 
+			<label for="EntranceRegister">
+				Alta en puerta:
+			</label>
+
+			<input name="EntranceRegister" value="<?= (isset( $id )) ? $getResult->getEntranceRegister() : set_value('EntranceRegister') ?>" class="form-control m-input" placeholder="Un número de 0-1000" type="text">
+
+		</div>
+
+		<div class="form-group m-form__group">
+
 			<label class="m-checkbox">
 
 				<input name="state" value="1" <?= (isset( $id )) ? ( $getResult->getState() == 1 ) ? 'checked' : ''  : 'checked'  ?> type="checkbox">Estado<span></span>

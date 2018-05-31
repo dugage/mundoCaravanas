@@ -57,6 +57,13 @@ class Vehicles
     private $color;
 
     /**
+     * @var string
+     *
+     * @Column(name="pay_method", type="string", length=25, nullable=false)
+     */
+    private $payMethod;
+
+    /**
      * @var \DateTime
      *
      * @Column(name="discharge_date", type="datetime", nullable=true)

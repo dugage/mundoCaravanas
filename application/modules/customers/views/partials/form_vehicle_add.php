@@ -82,6 +82,22 @@
 	</div>
 
 	<div class="form-group m-form__group">
+	
+		<label for="pay_method">Método de pago <span style="color:red;">*</span></label>
+
+		<select name="pay_method" id="pay_method" class="form-control m-input m-input--square">
+
+			<option value=""></option>
+			<option value="mensual">Mensual</option>
+			<option value="trimestral">Trimestral</option>
+			<option value="semestral">Semestral</option>
+			<option value="anual">Anual</option>
+
+		</select>
+
+	</div>
+
+	<div class="form-group m-form__group">
 
 		<label for="Parking">Parking: <span style="color:red;">*</span></label>
 

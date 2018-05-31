@@ -85,6 +85,23 @@
 	</div>
 
 	<div class="form-group m-form__group">
+	
+		<label for="pay_method">Método de pago <span style="color:red;">*</span></label>
+
+		<select name="pay_method" id="pay_method" class="form-control m-input m-input--square">
+		
+			<option value=""></option>
+			
+			<option <?php echo ( $getRow->getPayMethod() == 'mensual' ) ? 'selected' : '' ?> value="mensual">Mensual</option>
+			<option <?php echo ( $getRow->getPayMethod() == 'trimestral' ) ? 'selected' : '' ?> value="trimestral">Trimestral</option>
+			<option <?php echo ( $getRow->getPayMethod() == 'semestral' ) ? 'selected' : '' ?> value="semestral">Semestral</option>
+			<option <?php echo ( $getRow->getPayMethod() == 'anual' ) ? 'selected' : '' ?> value="anual">Anual</option>
+
+		</select>
+
+	</div>
+
+	<div class="form-group m-form__group">
 
 		<label for="Parking">Parking: <span style="color:red;">*</span></label>
 

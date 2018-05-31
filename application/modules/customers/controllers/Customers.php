@@ -110,13 +110,13 @@ class Customers  extends MX_Controller
         //colección de tablas de submódulos
         $data['vehicles'] = $this->_secundaryTable($id);
         //comprobamos formulario submit
-		$this->validationSubmit();
+		$this->validationSubmit($id);
         //cargamos la vista, en este caso es la del panel
 		$this->load->view('layout',$data);
 		
 	}
 
-	private function validationSubmit(){
+	private function validationSubmit($id = 0){
 		if( isset($_POST['submit-form']) ) {
         	//validamos los datos
             $this->form_validation->set_rules('name', 'Nombre', 'required');
@@ -125,8 +125,9 @@ class Customers  extends MX_Controller
             $this->form_validation->set_rules('zip', 'CP', 'required|exact_length[5]');
             $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
             $this->form_validation->set_rules('address', 'Dirección', 'required');
-            $this->form_validation->set_rules('paytype_id', 'Forma de pago', 'required');
-			$this->form_validation->set_rules('phone_primary', 'Teléfono', 'required|exact_length[9]');
+			$this->form_validation->set_rules('paytype_id', 'Forma de pago', 'required');
+			$this->form_validation->set_rules('paytype_id', 'Forma de pago', 'required');
+			$this->form_validation->set_rules('EntranceRegister', 'Alta en puerta', 'numeric|max_length[4]');
             $this->form_validation->set_error_delimiters('<div class="alert alert-danger" role="alert">', '</div>');
             //si el formulario es correcto
             if ($this->form_validation->run())
@@ -156,7 +157,7 @@ class Customers  extends MX_Controller
 		}
 	}
 	//método para crear y editar los datos principales
-	private function _setAndGetData($id = 0)
+	private function _setAndGetData($id)
 	{
 		//comprobamos si el id es mayor o no a 0, si este es igual a 0
 		//entendemos que lo que estamos es realizando un insert, si el mayor de 0
@@ -182,6 +183,7 @@ class Customers  extends MX_Controller
 		$item->setEmail($this->input->post('email'));
 		$item->setAddress($this->input->post('address'));
 		$item->setZip($this->input->post('zip'));
+		$item->setEntranceRegister($this->input->post('EntranceRegister'));
 		$item->setPaytype($payType);
 		$item->setState(1);
 		//si no esta marcado estado
@@ -230,7 +232,8 @@ class Customers  extends MX_Controller
         $data['getResult'] = $this->doctrine->em->getRepository("Entities\\Vehicles")->findBy(["customer" => $id]);
         $data['modal'] = site_url('customers/');
         $data['nameModule'] = $this->nameModule . '/vehiculos';
-        $data['image'] = true;
+		$data['image'] = true;
+		$data['adminPay'] = true;
         $data['id'] = $id;
         $data['title'] = 'Vehículo';
 		//devolvemos la tabla
@@ -290,6 +293,7 @@ class Customers  extends MX_Controller
 			$vehicle->setLicensePlate($this->input->post('license_plate'));
 			$vehicle->setModel($this->input->post('model'));
 			$vehicle->setVin($this->input->post('vin'));
+			$vehicle->setPayMethod($this->input->post('pay_method'));
 
 			//guardamos datos para vehiculos
 			$this->doctrine->em->persist($vehicle);
@@ -351,6 +355,7 @@ class Customers  extends MX_Controller
 			$vehicle->setLicensePlate($this->input->post('license_plate'));
 			$vehicle->setModel($this->input->post('model'));
 			$vehicle->setVin($this->input->post('vin'));
+			$vehicle->setPayMethod($this->input->post('pay_method'));
 
 			//guardamos
 			$this->doctrine->em->flush();
@@ -486,6 +491,20 @@ class Customers  extends MX_Controller
 		}else{
 
 			show_404();
+		}
+	}
+	//método que devuelve una lista con los pagos del vehículo
+	public function getCollectionPay()
+	{
+		//si es un request ajax, en caso contrario 404
+		if ( $this->input->is_ajax_request() ) {
+
+			//pasamos el formulario para dibujarlo en el modal
+			echo $this->load->view("partials/collection_pay",true);
+
+		}else{
+
+			show_4040();
 		}
 	}
 

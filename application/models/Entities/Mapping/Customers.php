@@ -113,6 +113,13 @@ class Customers
     private $state = '0';
 
     /**
+     * @var integer
+     *
+     * @Column(name="entrance_register", type="integer", nullable=false)
+     */
+    private $entranceRegister;
+
+    /**
      * @var \Paytypes
      *
      * @ManyToOne(targetEntity="Paytypes")

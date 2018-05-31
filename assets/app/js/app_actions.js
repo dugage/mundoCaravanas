@@ -62,6 +62,25 @@ var AppActions = function() {
             //add estilo para agrandar el modal con el style modal-lg
             $('.modal-dialog').addClass('modal-lg');
         });
+        //muestra y dibuja el modal de pagos, de cada vehículo
+        $("body").on("click",".modal-admin-pay", function(){
+            //id relación
+            var id = $(this).attr('id');
+            //configuramos los datos para la función ajax
+            var type = 'POST';
+            //url para llamar al metodo que devuelve el contenido del modal
+            var url = $(this).data('url')+'getCollectionPay';
+            var data = {id:id};
+            //lanzamos la consulta y almacenamos el return
+            var returndata = ActionAjax(type,url,data,null,null,true,false);
+            //dibujamos en el modal-body el contenidom, en este caso seran formualrios
+            $('#appModal .modal-body').html( returndata );
+            //y el título del modal
+            $('#appModal .modal-title').html( 'Listado de pagos');
+            //add estilo para agrandar el modal con el style modal-lg
+            $('.modal-dialog').addClass('modal-lg');
+            
+        });
 
     }
 
