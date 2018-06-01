@@ -89,13 +89,13 @@
 		<label for="pay_method">Método de pago <span style="color:red;">*</span></label>
 
 		<select name="pay_method" id="pay_method" class="form-control m-input m-input--square">
-		
+
 			<option value=""></option>
 			
-			<option <?php echo ( $getRow->getPayMethod() == 'mensual' ) ? 'selected' : '' ?> value="mensual">Mensual</option>
-			<option <?php echo ( $getRow->getPayMethod() == 'trimestral' ) ? 'selected' : '' ?> value="trimestral">Trimestral</option>
-			<option <?php echo ( $getRow->getPayMethod() == 'semestral' ) ? 'selected' : '' ?> value="semestral">Semestral</option>
-			<option <?php echo ( $getRow->getPayMethod() == 'anual' ) ? 'selected' : '' ?> value="anual">Anual</option>
+			<option <?php echo ( $getRow->getPayMethod() == 'monthly' ) ? 'selected' : '' ?> value="monthly">Mensual</option>
+			<option <?php echo ( $getRow->getPayMethod() == 'quarterly' ) ? 'selected' : '' ?> value="quarterly">Trimestral</option>
+			<option <?php echo ( $getRow->getPayMethod() == 'biannual' ) ? 'selected' : '' ?> value="biannual">Semestral</option>
+			<option <?php echo ( $getRow->getPayMethod() == 'yearly' ) ? 'selected' : '' ?> value="yearly">Anual</option>
 
 		</select>
 

@@ -165,8 +165,8 @@
 				<?php if( isset($adminPay) ): ?>
 
 					<td>
-
-						<a href="#" id="<?= $id ?>" data-url="<?= $modal ?>" class="btn btn-info m-btn m-btn--icon m-btn--icon-only modal-admin-pay" data-toggle="modal" data-target="#appModal">
+						
+						<a href="#" id="<?= $id ?>" data-url="<?= $modal ?>" class="btn btn-<?php echo (have_pending_payments($id))? "info" : "danger"; ?> m-btn m-btn--icon m-btn--icon-only modal-admin-pay" data-toggle="modal" data-target="#appModal">
 
 							<i class="flaticon-file-1"></i>
 

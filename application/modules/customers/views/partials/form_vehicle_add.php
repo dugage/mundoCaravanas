@@ -88,10 +88,10 @@
 		<select name="pay_method" id="pay_method" class="form-control m-input m-input--square">
 
 			<option value=""></option>
-			<option value="mensual">Mensual</option>
-			<option value="trimestral">Trimestral</option>
-			<option value="semestral">Semestral</option>
-			<option value="anual">Anual</option>
+			<option value="monthly">Mensual</option>
+			<option value="quarterly">Trimestral</option>
+			<option value="biannual">Semestral</option>
+			<option value="yearly">Anual</option>
 
 		</select>
 

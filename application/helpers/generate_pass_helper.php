@@ -1,13 +1,13 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 /**
- * YCP Creativos
+ * Dugage
  *
  * @package	CodeIgniter
- * @author	YCP Creativos
- * @copyright	YCP Creativos (c) 2015, YCP Creativos SL, (http://www.ycomieronperdices.net)
+ * @author	Dugage
+ * @copyright	Dugage (c) 2015, Dugage SL, (http://www.dugage.com)
  * @license	http://opensource.org/licenses/MIT	MIT License
- * @link	http://www.ycomieronperdices.net
+ * @link	http://www.dugage.com
  * @since	Version 1.0.0
  */
 
@@ -18,7 +18,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @package		CodeIgniter
  * @subpackage	Helpers
  * @category	Helpers
- * @author		YCP Creativos Team
+ * @author		Dugage Team
  */
 
 // ------------------------------------------------------------------------

@@ -17,6 +17,7 @@ class Customers  extends MX_Controller
 		$this->class = 'm-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default';
 		$this->nameModule = "Clientes";
 		$this->breadCrumbs = array('Clientes');
+		$this->load->helper('payments_control_helper');
 		/*
 			Este vector nos ayuda a dibujar la tabla con los resultados de la consutla de todos los item
 			para ellos es obligatortio el campo Id, además las claves que preceden al valor, tienen que
