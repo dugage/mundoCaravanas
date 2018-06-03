@@ -86,25 +86,6 @@
 
 		<div class="form-group m-form__group">
 
-			<label for="exampleSelect1">Forma de pago:</label>
-
-			<select name="paytype_id" class="form-control m-input m-input--square" id="paytype_id">
-				
-				<option value="">  </option>
-
-				<?php foreach ($getPayTypes as $key => $payType): ?>
-				
-					<option <?= (isset( $id ) ? ( $getResult->getPaytype()->getId() == $payType->getId() ? 'selected' : false ) : false ) ?> value="<?= $payType->getId() ?>"> <?= $payType->getName() ?> </option>
-
-				<?php endforeach ?>
-				
-				
-			</select>
-
-		</div>
-
-		<div class="form-group m-form__group">
-
 			<label for="EntranceRegister">
 				Alta en puerta:
 			</label>

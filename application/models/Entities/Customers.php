@@ -5,7 +5,7 @@ namespace Entities;
 /**
  * Customers
  *
- * @Table(name="CUSTOMERS", indexes={@Index(name="cu_pa", columns={"paytype_id"})})
+ * @Table(name="CUSTOMERS")
  * @Entity
  */
 class Customers
@@ -116,16 +116,6 @@ class Customers
      * @Column(name="entrance_register", type="integer", precision=0, scale=0, nullable=false, unique=false)
      */
     private $entranceRegister;
-
-    /**
-     * @var \Paytypes
-     *
-     * @ManyToOne(targetEntity="Paytypes")
-     * @JoinColumns({
-     *   @JoinColumn(name="paytype_id", referencedColumnName="id", nullable=true)
-     * })
-     */
-    private $paytype;
 
     public function __construct()
     {
@@ -479,30 +469,6 @@ class Customers
     public function getEntranceRegister()
     {
         return $this->entranceRegister;
-    }
-
-    /**
-     * Set paytype
-     *
-     * @param \Paytypes $paytype
-     *
-     * @return Customers
-     */
-    public function setPaytype($paytype)
-    {
-        $this->paytype = $paytype;
-
-        return $this;
-    }
-
-    /**
-     * Get paytype
-     *
-     * @return \Paytypes
-     */
-    public function getPaytype()
-    {
-        return $this->paytype;
     }
 }
 

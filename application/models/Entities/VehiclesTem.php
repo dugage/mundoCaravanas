@@ -1,6 +1,8 @@
 <?php
 
-namespace Entities;
+
+
+use Doctrine\Mapping as ORM;
 
 /**
  * Vehicles
@@ -83,6 +85,16 @@ class Vehicles
     private $upDate;
 
     /**
+     * @var \Paytypes
+     *
+     * @ManyToOne(targetEntity="Paytypes")
+     * @JoinColumns({
+     *   @JoinColumn(name="paytype_id", referencedColumnName="id", nullable=true)
+     * })
+     */
+    private $paytype;
+
+    /**
      * @var \Parking
      *
      * @ManyToOne(targetEntity="Parking")
@@ -121,23 +133,6 @@ class Vehicles
      * })
      */
     private $vehicleBrands;
-
-    /**
-     * @var \Paytypes
-     *
-     * @ManyToOne(targetEntity="Paytypes")
-     * @JoinColumns({
-     *   @JoinColumn(name="paytype_id", referencedColumnName="id", nullable=true)
-     * })
-     */
-    private $paytype;
-
-    public function __construct()
-    {
-        $this->dischargeDate = new \DateTime("now");
-        $this->dischargeDateCode = date("Y-m-d");
-        $this->upDate = new \DateTime("now");
-    }
 
 
     /**
@@ -367,13 +362,37 @@ class Vehicles
     }
 
     /**
+     * Set paytype
+     *
+     * @param \Paytypes $paytype
+     *
+     * @return Vehicles
+     */
+    public function setPaytype(\Paytypes $paytype = null)
+    {
+        $this->paytype = $paytype;
+
+        return $this;
+    }
+
+    /**
+     * Get paytype
+     *
+     * @return \Paytypes
+     */
+    public function getPaytype()
+    {
+        return $this->paytype;
+    }
+
+    /**
      * Set parking
      *
      * @param \Parking $parking
      *
      * @return Vehicles
      */
-    public function setParking($parking)
+    public function setParking(\Parking $parking = null)
     {
         $this->parking = $parking;
 
@@ -397,7 +416,7 @@ class Vehicles
      *
      * @return Vehicles
      */
-    public function setCustomer($customer)
+    public function setCustomer(\Customers $customer = null)
     {
         $this->customer = $customer;
 
@@ -421,7 +440,7 @@ class Vehicles
      *
      * @return Vehicles
      */
-    public function setVehicleTypes($vehicleTypes)
+    public function setVehicleTypes(\VehicleTypes $vehicleTypes = null)
     {
         $this->vehicleTypes = $vehicleTypes;
 
@@ -445,7 +464,7 @@ class Vehicles
      *
      * @return Vehicles
      */
-    public function setVehicleBrands($vehicleBrands )
+    public function setVehicleBrands(\VehicleBrands $vehicleBrands = null)
     {
         $this->vehicleBrands = $vehicleBrands;
 
@@ -460,30 +479,6 @@ class Vehicles
     public function getVehicleBrands()
     {
         return $this->vehicleBrands;
-    }
-
-    /**
-     * Set paytype
-     *
-     * @param \Paytypes $paytype
-     *
-     * @return Vehicles
-     */
-    public function setPaytype($paytype)
-    {
-        $this->paytype = $paytype;
-
-        return $this;
-    }
-
-    /**
-     * Get paytype
-     *
-     * @return \Paytypes
-     */
-    public function getPaytype()
-    {
-        return $this->paytype;
     }
 }
 

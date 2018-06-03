@@ -83,8 +83,6 @@ class Customers  extends MX_Controller
         $data['view'] = strtolower(__FUNCTION__."_".$this->nameClass);
         //migas de pan
         $data['breadCrumbs'] = $this->breadCrumbs;
-        //obtenemos los formatos de pago
-        $data['getPayTypes'] = $this->doctrine->em->getRepository("Entities\\Paytypes")->findAll();
         //comprobamos formulario submit
         $this->validationSubmit();
         //cargamos la vista, en este caso es la del panel
@@ -104,8 +102,6 @@ class Customers  extends MX_Controller
 		$data['breadCrumbs'] = $this->breadCrumbs;
         //obtenemos y pasamos a la vista los datos
         $data['getResult'] = $this->doctrine->em->find("Entities\\Customers", $id);
-        //obtenemos los formatos de pago
-        $data['getPayTypes'] = $this->doctrine->em->getRepository("Entities\\Paytypes")->findAll();
         //pasamos el id
         $data['id'] = $id;
         //colección de tablas de submódulos
@@ -126,8 +122,6 @@ class Customers  extends MX_Controller
             $this->form_validation->set_rules('zip', 'CP', 'required|exact_length[5]');
             $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
             $this->form_validation->set_rules('address', 'Dirección', 'required');
-			$this->form_validation->set_rules('paytype_id', 'Forma de pago', 'required');
-			$this->form_validation->set_rules('paytype_id', 'Forma de pago', 'required');
 			$this->form_validation->set_rules('EntranceRegister', 'Alta en puerta', 'numeric|max_length[4]');
             $this->form_validation->set_error_delimiters('<div class="alert alert-danger" role="alert">', '</div>');
             //si el formulario es correcto
@@ -172,9 +166,6 @@ class Customers  extends MX_Controller
 			//realizamos una consulta pasando el id para obtener el item que vamos a editar
 			$item = $this->doctrine->em->find("Entities\\Customers", $id);
 		}
-		//obtenemos el formato de pago seleccionado
-		$payType = $this->doctrine->em->find("Entities\\Paytypes", $this->input->post('paytype_id'));
-
 		//seteamos los datos
 		$item->setName($this->input->post('name'));
 		$item->setSurname($this->input->post('surname'));
@@ -185,7 +176,6 @@ class Customers  extends MX_Controller
 		$item->setAddress($this->input->post('address'));
 		$item->setZip($this->input->post('zip'));
 		$item->setEntranceRegister($this->input->post('EntranceRegister'));
-		$item->setPaytype($payType);
 		$item->setState(1);
 		//si no esta marcado estado
 		if(!isset($_POST['state']))
@@ -254,7 +244,8 @@ class Customers  extends MX_Controller
         	$data['getVehiclesBrands'] = $this->doctrine->em->getRepository("Entities\\VehicleBrands")->findAll();
         	//Obtenemos todos los parking abiertos
         	$data['getParking'] = $this->doctrine->em->getRepository("Entities\\Parking")->findBy(["state" => "0"]);
-        	
+        	//obtenemos los formatos de pago
+        	$data['getPayTypes'] = $this->doctrine->em->getRepository("Entities\\Paytypes")->findAll();
         	//comprobamos si el tipo de formulario es igual a edit, si es el caso pasamos los datos del vehículo que vamos
         	//a editar.
         	if( $formType == "edit" )
@@ -284,7 +275,8 @@ class Customers  extends MX_Controller
 			$customer = $this->doctrine->em->find("Entities\\Customers", $id);
 			$vehicletype = $this->doctrine->em->find("Entities\\VehicleTypes", $this->input->post('vehicle_types'));
 			$vehiclebrand = $this->doctrine->em->find("Entities\\VehicleBrands", $this->input->post('vehicle_brands'));
-			
+			$payType = $this->doctrine->em->find("Entities\\Paytypes", $this->input->post('paytype_id'));
+
 			//seteamos los datos
 			$vehicle->setCustomer($customer);
 			$vehicle->setParking($parking);
@@ -295,6 +287,7 @@ class Customers  extends MX_Controller
 			$vehicle->setModel($this->input->post('model'));
 			$vehicle->setVin($this->input->post('vin'));
 			$vehicle->setPayMethod($this->input->post('pay_method'));
+			$vehicle->setPaytype($payType);
 
 			//guardamos datos para vehiculos
 			$this->doctrine->em->persist($vehicle);
@@ -337,6 +330,7 @@ class Customers  extends MX_Controller
 			//obtenemos las id's
 			$customer = $this->doctrine->em->find("Entities\\Customers", $vehicle->getCustomer());
 			$parking = $this->doctrine->em->find("Entities\\Parking", $parking_new);
+			$payType = $this->doctrine->em->find("Entities\\Paytypes", $this->input->post('paytype_id'));
 
 			//cerramos el parking
 			$parking->setState(1);
@@ -352,6 +346,7 @@ class Customers  extends MX_Controller
 			$vehicle->setParking($parking);
 			$vehicle->setVehicleTypes($vehicletype);
 			$vehicle->setVehicleBrands($vehiclebrand);
+			$vehicle->setPaytype($payType);
 			$vehicle->setYear($this->input->post('year'));
 			$vehicle->setLicensePlate($this->input->post('license_plate'));
 			$vehicle->setModel($this->input->post('model'));
