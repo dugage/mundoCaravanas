@@ -18,7 +18,7 @@
 
 			<label class="m-checkbox">
 
-				<input name="state" value="1" <?= (isset( $id )) ? ( $getResult->getState() == 1 ) ? 'checked' : ''  : 'checked'  ?> type="checkbox">Estado<span></span>
+				<input name="state" value="1" <?= (isset( $id )) ? ( $getResult->getState() == 1 ) ? 'checked' : ''  : ''  ?> type="checkbox">Estado<span></span>
 
 			</label>
 
@@ -30,11 +30,11 @@
 
 		<div class="m-form__actions m-form__actions">
 
-			<button name="submit-form" type="submit" class="btn btn-primary"><i class="la la-floppy-o"></i> Gurdar</button>
+			<button name="submit-form" type="submit" class="btn btn-primary"><i class="la la-floppy-o"></i> Guardar</button>
 			
 			<?php if( isset( $id ) ): ?>
 
-				<a href="<?= site_url('tipos') ?>" class="btn btn-secondary"><i class="la la-angle-left"></i> Volver</a>
+				<a href="<?= site_url('administrar-parking') ?>" class="btn btn-secondary"><i class="la la-angle-left"></i> Volver</a>
 
 			<?php endif ?>
 

@@ -64,10 +64,10 @@ class Customers extends \Entities\Customers implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', '' . "\0" . 'Entities\\Customers' . "\0" . 'id', '' . "\0" . 'Entities\\Customers' . "\0" . 'provinceId', '' . "\0" . 'Entities\\Customers' . "\0" . 'name', '' . "\0" . 'Entities\\Customers' . "\0" . 'surname', '' . "\0" . 'Entities\\Customers' . "\0" . 'nif', '' . "\0" . 'Entities\\Customers' . "\0" . 'phonePrimary', '' . "\0" . 'Entities\\Customers' . "\0" . 'phoneSecond', '' . "\0" . 'Entities\\Customers' . "\0" . 'email', '' . "\0" . 'Entities\\Customers' . "\0" . 'address', '' . "\0" . 'Entities\\Customers' . "\0" . 'zip', '' . "\0" . 'Entities\\Customers' . "\0" . 'dischargeDate', '' . "\0" . 'Entities\\Customers' . "\0" . 'dischargeDateCode', '' . "\0" . 'Entities\\Customers' . "\0" . 'upDate', '' . "\0" . 'Entities\\Customers' . "\0" . 'state', '' . "\0" . 'Entities\\Customers' . "\0" . 'entranceRegister', '' . "\0" . 'Entities\\Customers' . "\0" . 'paytype'];
+            return ['__isInitialized__', '' . "\0" . 'Entities\\Customers' . "\0" . 'id', '' . "\0" . 'Entities\\Customers' . "\0" . 'provinceId', '' . "\0" . 'Entities\\Customers' . "\0" . 'name', '' . "\0" . 'Entities\\Customers' . "\0" . 'surname', '' . "\0" . 'Entities\\Customers' . "\0" . 'nif', '' . "\0" . 'Entities\\Customers' . "\0" . 'phonePrimary', '' . "\0" . 'Entities\\Customers' . "\0" . 'phoneSecond', '' . "\0" . 'Entities\\Customers' . "\0" . 'email', '' . "\0" . 'Entities\\Customers' . "\0" . 'address', '' . "\0" . 'Entities\\Customers' . "\0" . 'zip', '' . "\0" . 'Entities\\Customers' . "\0" . 'dischargeDate', '' . "\0" . 'Entities\\Customers' . "\0" . 'dischargeDateCode', '' . "\0" . 'Entities\\Customers' . "\0" . 'upDate', '' . "\0" . 'Entities\\Customers' . "\0" . 'state', '' . "\0" . 'Entities\\Customers' . "\0" . 'entranceRegister'];
         }
 
-        return ['__isInitialized__', '' . "\0" . 'Entities\\Customers' . "\0" . 'id', '' . "\0" . 'Entities\\Customers' . "\0" . 'provinceId', '' . "\0" . 'Entities\\Customers' . "\0" . 'name', '' . "\0" . 'Entities\\Customers' . "\0" . 'surname', '' . "\0" . 'Entities\\Customers' . "\0" . 'nif', '' . "\0" . 'Entities\\Customers' . "\0" . 'phonePrimary', '' . "\0" . 'Entities\\Customers' . "\0" . 'phoneSecond', '' . "\0" . 'Entities\\Customers' . "\0" . 'email', '' . "\0" . 'Entities\\Customers' . "\0" . 'address', '' . "\0" . 'Entities\\Customers' . "\0" . 'zip', '' . "\0" . 'Entities\\Customers' . "\0" . 'dischargeDate', '' . "\0" . 'Entities\\Customers' . "\0" . 'dischargeDateCode', '' . "\0" . 'Entities\\Customers' . "\0" . 'upDate', '' . "\0" . 'Entities\\Customers' . "\0" . 'state', '' . "\0" . 'Entities\\Customers' . "\0" . 'entranceRegister', '' . "\0" . 'Entities\\Customers' . "\0" . 'paytype'];
+        return ['__isInitialized__', '' . "\0" . 'Entities\\Customers' . "\0" . 'id', '' . "\0" . 'Entities\\Customers' . "\0" . 'provinceId', '' . "\0" . 'Entities\\Customers' . "\0" . 'name', '' . "\0" . 'Entities\\Customers' . "\0" . 'surname', '' . "\0" . 'Entities\\Customers' . "\0" . 'nif', '' . "\0" . 'Entities\\Customers' . "\0" . 'phonePrimary', '' . "\0" . 'Entities\\Customers' . "\0" . 'phoneSecond', '' . "\0" . 'Entities\\Customers' . "\0" . 'email', '' . "\0" . 'Entities\\Customers' . "\0" . 'address', '' . "\0" . 'Entities\\Customers' . "\0" . 'zip', '' . "\0" . 'Entities\\Customers' . "\0" . 'dischargeDate', '' . "\0" . 'Entities\\Customers' . "\0" . 'dischargeDateCode', '' . "\0" . 'Entities\\Customers' . "\0" . 'upDate', '' . "\0" . 'Entities\\Customers' . "\0" . 'state', '' . "\0" . 'Entities\\Customers' . "\0" . 'entranceRegister'];
     }
 
     /**
@@ -494,28 +494,6 @@ class Customers extends \Entities\Customers implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getEntranceRegister', []);
 
         return parent::getEntranceRegister();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setPaytype($paytype)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setPaytype', [$paytype]);
-
-        return parent::setPaytype($paytype);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getPaytype()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getPaytype', []);
-
-        return parent::getPaytype();
     }
 
 }
