@@ -132,7 +132,7 @@
 						<a href="#" id="<?= $id ?>" data-title="<?= $title ?>" data-url="<?= $modal ?>" class="btn btn-warning m-btn m-btn--icon m-btn--icon-only modal-edit" data-toggle="modal" data-target="#appModal">
 							<i class="fa flaticon-edit-1"></i>
 						</a>
-
+						
 						<a href="<?= site_url(strtolower($nameModule). '/delete/' .$id ) ?>" class="btn btn-danger m-btn m-btn--icon m-btn--icon-only">
 							<i class="fa flaticon-circle"></i>
 						</a>
@@ -149,7 +149,7 @@
 
 
 					<?php elseif( isset($nameModule) ): ?>
-						
+	
 						<a href="<?= site_url(strtolower(str_replace(' ','-',$nameModule)).'/edit/'.$id) ?>" class="btn btn-warning m-btn m-btn--icon m-btn--icon-only">
 							<i class="fa flaticon-edit-1"></i>
 						</a>
@@ -157,6 +157,7 @@
 						<a href="<?= site_url(strtolower(str_replace(' ','-',$nameModule)).'/delete/'.$id) ?>" class="btn btn-danger m-btn m-btn--icon m-btn--icon-only">
 							<i class="fa flaticon-circle"></i>
 						</a>
+
 
 					<?php endif ?>
 

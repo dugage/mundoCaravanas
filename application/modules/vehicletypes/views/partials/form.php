@@ -7,10 +7,10 @@
 		<div class="form-group m-form__group">
 
 			<label for="example_input_full_name">
-				Tipo:
+				Tipo
 			</label>
 
-			<input name="name" value="<?= (isset( $id )) ? $getResult->getName() : set_value('name') ?>" class="form-control m-input" placeholder="Introduce el Tpo de vehículo ej. Urban" type="text">
+			<input name="name" value="<?= (isset( $id )) ? $getResult->getName() : set_value('name') ?>" class="form-control m-input" placeholder="Introduce el Tipo de vehículo ej. Urban" type="text">
 
 		</div>
 

@@ -57,7 +57,8 @@ class Vehicletypes  extends MX_Controller
         //pasamos la configuración de la cabecera de la tabla
         $data['tableTh'] = $this->tableTh;
         //Obtenemos dotos los datos de la tabla
-        $data['getResult'] = $this->doctrine->em->getRepository("Entities\\VehicleTypes")->findAll();
+		$data['getResult'] = $this->doctrine->em->getRepository("Entities\\VehicleTypes")->findAll();
+		
         //cargamos la vista, en este caso es la del panel
         $this->load->view('layout',$data);
 	}
@@ -127,7 +128,22 @@ class Vehicletypes  extends MX_Controller
 		if( $id > 0 ){
 
 			//obtenemos el dato mediante id
-	        $getRow = $this->doctrine->em->find("Entities\\VehicleTypes", $id);
+			$getRow = $this->doctrine->em->find("Entities\\VehicleTypes", $id);
+
+			//
+			/*
+			En desarrollo
+			$idVehicleType = $getRow->getId();
+			$allVehicles = $this->doctrine->em->getRepository("Entities\\Vehicles")->findAll();
+			for($x=0; count($allVehicles); $x++){
+				if($allVehicles[$x]->getVehicleTypes() == $idVehicleType){
+					echo "hola";
+				}
+			}*/
+			
+			
+			//
+
 	        //eliminamos el item
 	        $this->doctrine->em->remove($getRow);
 	        $this->doctrine->em->flush();
