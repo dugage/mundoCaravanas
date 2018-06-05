@@ -6,6 +6,8 @@
 
             <th>#</th>
 
+            <th>Recibo</th>
+
             <th>Fecha</th>
 
             <th>Estado</th>
@@ -18,29 +20,51 @@
 
     <tbody>
 
-        <tr>
+        <?php if( $getCollections ): ?>
 
-            <td>1</td>
+            <?php foreach ($getCollections as $key => $collection): ?>
 
-            <td>24/05/2018</td>
+                <tr>
 
-            <td>Pagado</td>
+                    <td><?= $collection->getId() ?></td>
 
-            <td>Pgar</td>
+                    <td><?= $collection->getCdate() ?></td>
 
-        </tr>
+                    <td><?= $collection->getDischargedate()->format('d-m-Y') ?></td>
 
-        <tr>
+                    <td>Pagado</td>
 
-            <td>1</td>
+                    <td></td>
 
-            <td>24/05/2018</td>
+                </tr>
 
-            <td>Pagado</td>
+            <?php endforeach ?>   
 
-            <td>Pgar</td>
+        <?php endif ?>
 
-        </tr>
+        <?php if( $getCollectionNoPayment ): ?>
+
+        <?php foreach ($getCollectionNoPayment as $key => $collection): ?>
+
+            <tr>
+
+                <td>-</td>
+
+                <td><?= $collection ?></td>
+
+                <td>-</td>
+
+                <td>Impagado</td>
+
+                <td>
+                    <button type="button" class="btn btn-danger pay-collection">Pagar</button>
+                </td>
+
+            </tr>
+
+        <?php endforeach ?>   
+
+        <?php endif ?>
 
     </tbody>
 

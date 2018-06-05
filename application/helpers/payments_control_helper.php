@@ -18,7 +18,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @category	Helpers
  * @author		Dugage Team
  * @link		https://dugage.com
- * //return $fun($vehicle,'control');
+ * 
  */
 if ( ! function_exists('have_pending_payments') )
 {
@@ -41,6 +41,23 @@ if ( ! function_exists('have_pending_payments') )
         $result = check_payments($vehicle);
         //devolvemos un verdadero o falso, donde  verdadero será que tiene pagos pendientes
         return $result;
+    }
+}
+//devuelve un listado con los pagos pendientes
+//este es realizado tomando como parametro, el tipo de pago
+//yearly,biannual,quarterly o monthly. 
+if ( ! function_exists('get_collection') )
+{
+    function get_collection($id){
+        //obtenemos el objeto Vehícle mediente su id
+        $CI =& get_instance();
+        $CI->load->database();
+        $vehicle = $CI->db->get_where('VEHICLES', array('id' => $id));
+        //Utilizando el método de pago, llamamos a la función correspondiente
+        $func = $vehicle->row()->pay_method;
+        $calloectionList = $func($vehicle);
+        //devolvemos la lista
+        return $calloectionList;
     }
 }
 //comprobamos y devolvemos si el vehículo tiene inpagos o no
@@ -88,32 +105,47 @@ if ( ! function_exists('check_payments') )
         return $result;
     }
 }
-//las funciones que realizan las operaciones correspondientes según el formato de pago
+//funciones de listado de impagos según tipo de pago
 if ( ! function_exists('yearly') )
 {
     /*
-    *Determina mediante una consulta a la talba collection, si este tiene o no
-    *pagos pendientes, para ello se pasa el id del vehículo para obtener el formato de pago
-    *anual, semestral ... en forma de vector.
+    *Crea una lista con los pagos, pendientes, en caso de no tener pagos pendientes, devuelve null
     */
-    function yearly($v,$a)
+    function yearly($v)
     {
-        //hacemos uso de get_instance para poder utilizar desde
-        //este espacio las librerías
         $CI =& get_instance();
-        //cargamos la librería para conectarnos a la base de datos y utilizar
-        //el query builder
         $CI->load->database();
-        //alamceanmos en años en el que estamos actualmente
+        //alamceanmos el en el que estamos actualmente
         $cDate = date('Y');
         //booleano que devolvemos dependiendo de si el resultado de la consutla a collections dvuelve
         //o no datos
-        $result = false;
+        $result = null;
         //realizamos una consulta en collections pasando el id del vehículo y el cDate
         $collection = $CI->db->get_where('COLLECTIONS', array('id_vehicle' => $v->row()->id,'c_date' => $cDate));
-        //comprobamos la consulta y si contiene datos sobreescribimos result a true
-        if( $collection->num_rows() > 0 != null )
-            $result = 'true';
+        //si la consulta es null, es decir no obtiene datos, mostamos un vector con el pago/s pendientes/s
+        if( $collection->num_rows() == 0 )
+        {
+            //obtenemos el último pago registrado
+            $CI->db->order_by('id', 'DESC');
+            $CI->db->limit(1);
+            $lastPayment = $CI->db->get_where('COLLECTIONS', array('id_vehicle' => $v->row()->id));
+            //si el resultado de la consulta es nulo, el result será un array con el año actual
+            //en caso contrario, recorremos mediante un for la diferencia entre años y creamos una lista
+            //de impagos
+            if( $lastPayment->num_rows() == 0 ) 
+            {
+
+                $result = array( $cDate );
+
+            }else{
+
+                for ($i= $lastPayment->row()->c_date + 1 ; $i <= $cDate ; $i++) { 
+                    
+                    $result[] = $i;
+                }
+
+            }
+        }
         //devolvemos el resultdao
         return $result;
     }

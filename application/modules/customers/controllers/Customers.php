@@ -494,9 +494,12 @@ class Customers  extends MX_Controller
 	{
 		//si es un request ajax, en caso contrario 404
 		if ( $this->input->is_ajax_request() ) {
-
-			//pasamos el formulario para dibujarlo en el modal
-			echo $this->load->view("partials/collection_pay",true);
+			//obtenemos el listado de pagos
+			$id = $this->input->post('id');
+			$data['getCollections'] = $this->doctrine->em->getRepository("Entities\\Collections")->findBy(["idVehicle" => $id]);
+			$data['getCollectionNoPayment'] = get_collection( $id );
+			//pasamos la tabla con los datos del pago
+			echo $this->load->view("partials/collection_pay",$data,true);
 
 		}else{
 
