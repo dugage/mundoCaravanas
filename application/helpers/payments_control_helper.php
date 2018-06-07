@@ -92,7 +92,7 @@ if ( ! function_exists('check_payments') )
 
             case 'monthly':
                 //code si es el pago es mensual
-                $cDate = date('Ym');
+                $cDate = date('Y');
                 break;
         }
         
@@ -159,4 +159,9 @@ function biannual()
 function monthly()
 {
     return 'monthly';
+}
+
+function quarterly()
+{
+    return 'quarterly';
 }
