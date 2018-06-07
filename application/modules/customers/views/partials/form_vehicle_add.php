@@ -91,7 +91,7 @@
 
 			<?php foreach ($getPayTypes as $key => $payType): ?>
 			
-				<option value"<?= $payType->getId() ?>"> <?= $payType->getName() ?> </option>
+				<option value="<?= $payType->getId() ?>"> <?= $payType->getName() ?> </option>
 
 			<?php endforeach ?>
 			
