@@ -22,7 +22,7 @@
 
         <?php if( $getCollections ): ?>
 
-            <?php foreach ($getCollections as $key => $collection): ?>
+            <?php foreach ((array)$getCollections as $key => $collection): ?>
 
                 <tr>
 
@@ -44,7 +44,7 @@
 
         <?php if( $getCollectionNoPayment ): ?>
 
-        <?php foreach ($getCollectionNoPayment as $key => $collection): ?>
+        <?php foreach ((array)$getCollectionNoPayment as $key => $collection): ?>
 
             <tr>
 
