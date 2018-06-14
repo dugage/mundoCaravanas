@@ -60,7 +60,7 @@ if ( ! function_exists('get_collection') )
         return $calloectionList;
     }
 }
-//comprobamos y devolvemos si el vehículo tiene inpagos o no
+//comprobamos y devolvemos si el vehículo tiene impagos o no
 if ( ! function_exists('check_payments') )
 {
     function check_payments($v)
@@ -82,12 +82,12 @@ if ( ! function_exists('check_payments') )
 
             case 'biannual':
                 //code si es el pago es semestral
-                $cDate = date('Y');
+                $cDate = get_this_biannual();
                 break;
 
             case 'quarterly':
                 //code si es el pago es trimestral
-                $cDate = date('Y');
+                $cDate = get_this_quarterly();
                 break;
 
             case 'monthly':
@@ -99,8 +99,9 @@ if ( ! function_exists('check_payments') )
         //realizamos una consulta en collections pasando el id del vehículo y el cDate
         $collection = $CI->db->get_where('COLLECTIONS', array('id_vehicle' => $v->row()->id,'c_date' => $cDate));
         //comprobamos la consulta y si contiene datos sobreescribimos result a true
-        if( $collection->num_rows() > 0 != null )
+        if( $collection->num_rows() > 0 )
             $result = true;
+        
         //devolvemos el resultdao
         return $result;
     }
@@ -113,12 +114,117 @@ if ( ! function_exists('yearly') )
     */
     function yearly($v)
     {
-        $CI =& get_instance();
-        $CI->load->database();
-        //alamceanmos el en el que estamos actualmente
         $cDate = date('Y');
+        $lastPayment = base_consult($cDate,$v);
         //booleano que devolvemos dependiendo de si el resultado de la consutla a collections dvuelve
         //o no datos
+        $result = [];
+        //si el resultado de la consulta es nulo, el result será un array con el año actual
+        //en caso contrario, recorremos mediante un for la diferencia entre años y creamos una lista
+        //de impagos
+        if( $lastPayment->num_rows() > 0 ) 
+        {
+
+            for ($i = $lastPayment->row()->c_date + 1 ; $i <= $cDate ; $i++) { 
+                
+                $result[] = $i;
+            }
+
+        }
+        //devolvemos el resultdao
+        return $result;
+    }
+}
+
+if ( ! function_exists('biannual') )
+{
+    function biannual($v)
+    {
+        $cDate = get_this_biannual();
+        $lastPayment = base_consult($cDate,$v);
+        //booleano que devolvemos dependiendo de si el resultado de la consutla a collections dvuelve
+        //o no datos
+        $result = [];
+        //si el resultado de la consulta es nulo, el result será un array con el semestre actual
+        //en caso contrario, recorremos mediante un for la diferencia entre semestre y creamos una lista
+        //de impagos
+        if( $lastPayment->num_rows() > 0 ) 
+        {
+
+            for ($i = $lastPayment->row()->c_date + 6 ; $i <= $cDate ; $i+=6) { 
+                
+                $i = change_year($i);
+                $result[] = $i;
+                
+            }
+
+        }
+        //devolvemos el resultado
+        return $result;
+    }
+}
+
+if ( ! function_exists('quarterly') )
+{
+    function quarterly($v)
+    {
+        $cDate = get_this_quarterly();
+        $lastPayment = base_consult($cDate,$v);
+        //booleano que devolvemos dependiendo de si el resultado de la consutla a collections dvuelve
+        //o no datos
+        $result = [];
+        //si el resultado de la consulta es nulo, el result será un array con el trimetre actual
+        //en caso contrario, recorremos mediante un for la diferencia entre trimetre y creamos una lista
+        //de impagos
+        if( $lastPayment->num_rows() > 0 ) 
+        {
+
+            for ($i = $lastPayment->row()->c_date + 3 ; $i <= $cDate ; $i+=3) { 
+                
+                $i = change_year($i);
+                $result[] = $i;
+
+            }
+
+        }
+        //devolvemos el resultado
+        return $result;
+    }
+}
+
+if ( ! function_exists('monthly') )
+{
+    function monthly($v)
+    {
+        $cDate = date('Ym');
+        $lastPayment = base_consult($cDate,$v);
+        //booleano que devolvemos dependiendo de si el resultado de la consutla a collections dvuelve
+        //o no datos
+        $result = [];
+        //si el resultado de la consulta es nulo, el result será un array con el mes actual
+        //en caso contrario, recorremos mediante un for la diferencia entre meses y creamos una lista
+        //de impagos
+        if( $lastPayment->num_rows() > 0 ) 
+        {
+
+            for ($i= $lastPayment->row()->c_date + 1 ; $i <= $cDate ; $i++) { 
+                
+                $i = change_year($i);
+                $result[] = $i;
+            }
+
+        }
+        //devolvemos el resultado
+        return $result;
+    }
+}
+
+if ( ! function_exists('base_consult') )
+{
+    function base_consult($cDate,$v)
+    {
+        $CI =& get_instance();
+        $CI->load->database();
         $result = null;
         //realizamos una consulta en collections pasando el id del vehículo y el cDate
         $collection = $CI->db->get_where('COLLECTIONS', array('id_vehicle' => $v->row()->id,'c_date' => $cDate));
@@ -128,35 +234,78 @@ if ( ! function_exists('yearly') )
             //obtenemos el último pago registrado
             $CI->db->order_by('id', 'DESC');
             $CI->db->limit(1);
-            $lastPayment = $CI->db->get_where('COLLECTIONS', array('id_vehicle' => $v->row()->id));
-            //si el resultado de la consulta es nulo, el result será un array con el año actual
-            //en caso contrario, recorremos mediante un for la diferencia entre años y creamos una lista
-            //de impagos
-            if( $lastPayment->num_rows() == 0 ) 
-            {
+            $result = $CI->db->get_where('COLLECTIONS', array('id_vehicle' => $v->row()->id));
 
-                $result = array( $cDate );
+        }else{
 
-            }else{
-
-                for ($i= $lastPayment->row()->c_date + 1 ; $i <= $cDate ; $i++) { 
-                    
-                    $result[] = $i;
-                }
-
-            }
+            $result = $collection;
         }
-        //devolvemos el resultdao
+
         return $result;
     }
 }
 
-function biannual()
+if ( ! function_exists('get_this_quarterly') )
 {
-    return 'biannual';
+    function get_this_quarterly()
+    {
+        $result = null;
+        //calculamos en trimestre que estamos
+        $quarterly = floor((date('m')-1) / 3)+1;
+        //según el trimestre, pasamos una fecha
+        switch ($quarterly) {
+            case 1:
+                $result = date('Y').'01';
+                break;
+
+            case 2:
+                $result = date('Y').'04';
+                break;
+
+            case 3:
+                $result = date('Y').'07';
+                break;
+            
+            default:
+                $result = date('Y').'10';
+                break;
+        }
+
+        return $result;
+    }
 }
 
-function monthly()
+if ( ! function_exists('get_this_biannual') )
 {
-    return 'monthly';
+    function get_this_biannual()
+    {
+        $result = null;
+        //calculamos en trimestre que estamos
+        $biannual = date('m');
+        //según el trimestre, pasamos una fecha
+        if( $biannual <= 6 ) {
+
+            $result = date('Y').'01';
+
+        }else{
+
+            $result = date('Y').'07';
+        }
+
+        return $result;
+    }
+}
+//calculamos el cambio de año
+if ( ! function_exists('change_year') )
+{
+    function change_year($date)
+    {
+        $n = str_split($date);
+        $n = $n[4].$n[5];
+
+        if( $n == '13')
+            $date = '201801';
+
+        return $date;
+    }
 }
